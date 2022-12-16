@@ -1,0 +1,72 @@
+import basic;
+
+array Signature [byte; 65];
+array Signature2 [Signature; 2];
+array PKHash2 [Byte32; 2];
+
+struct Balance {
+    settled:          Uint128,
+    pending_transfer: Uint128,
+}
+
+array Balance2 [Balance; 2];
+
+struct Transfer {
+    channel_id: Byte32,
+    to_pk:      Byte32,
+    amount:     Uint128,
+}
+
+struct PendingTransfer {
+    source_channel_id: Byte32, 
+    remote_to_pk:      Byte32,
+    hash_lock:         Byte32,
+    asset:             Byte32,
+    transfer:          Transfer,
+}
+
+struct SettlePendingTransfer {
+	pre_image: Byte32,
+}
+
+union RawTx {
+    Transfer,
+    PendingTransfer,
+    SettlePendingTransfer,
+}
+
+table Tx {
+    raw: RawTx,
+    sig: Signature,
+}
+
+struct ValueTransfer {
+    phantom: byte,
+}
+
+struct ValuePendingTransfer {
+    phantom: byte,
+}
+
+struct ValueSettlePendingTransfer {
+    pre_image: Byte32,
+}
+
+union TxValue {
+    ValueTransfer,
+    ValuePendingTransfer,
+    ValueSettlePendingTransfer,
+}
+
+struct Channel {
+	asset:                    Byte32,
+    challenge_period:         Uint64,
+    pk_hash2:                 PKHash2,
+    update_time_limit:        byte, 
+    state:                    byte, 
+    version:                  Uint64, 
+    total:                    Uint128,
+    balance2:                 Balance2,
+    tx_root:                  Byte32, 
+    challenge_settle_tx_root: Byte32, 
+}

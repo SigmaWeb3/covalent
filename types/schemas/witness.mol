@@ -1,0 +1,40 @@
+import basic;
+import cell;
+
+struct CloseChannel {
+    channel_id: Byte32,
+    version:    Uint64,
+    balance2:   Balance2,
+    tx_root:    Byte32,
+    signature2: Signature2,
+}
+
+struct UpdateChannel {
+    channel_id: Byte32,
+    version:    Uint64,
+    balance2:   Balance2,
+    tx_root:    Byte32,
+    signature2: Signature2,
+}
+
+struct PendingTransferKey {
+    version: Uint64,
+    raw_tx:  RawTx,
+}
+
+vector PendingTransferKeyVec <PendingTransferKey>;
+vector Byte32Vec <Byte32>;
+vector SettleIdxs <Uint32>;
+
+table SettleChannel {
+    keys:                     PendingTransferKeyVec,
+    proof:                    Bytes,
+    pre_images:               Byte32Vec,
+    settle_keys:              SettleIdxs,
+    non_exists_proof:         Bytes,
+    challenge_settle_tx_root: Byte32,
+}
+ 
+struct FinalizeChannel {
+    signature2: Signature2,
+}

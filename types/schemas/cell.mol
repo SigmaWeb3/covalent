@@ -11,12 +11,14 @@ struct Balance {
 
 array Balance2 [Balance; 2];
 
+// 32 + 32 + 16 = 80
 struct Transfer {
     channel_id: Byte32,
     to_pk:      Byte32,
     amount:     Uint128,
 }
 
+// 32 + 32 + 32 + 32 + 80 = 208
 struct PendingTransfer {
     source_channel_id: Byte32, 
     remote_to_pk:      Byte32,
@@ -25,14 +27,16 @@ struct PendingTransfer {
     transfer:          Transfer,
 }
 
+// 32
 struct SettlePendingTransfer {
 	pre_image: Byte32,
 }
 
-union RawTx {
-    Transfer,
-    PendingTransfer,
-    SettlePendingTransfer,
+array PlainTx [byte; 208];
+
+struct RawTx {
+    state: byte,
+    tx:    PlainTx,
 }
 
 table Tx {

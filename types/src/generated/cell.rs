@@ -2645,6 +2645,3519 @@ impl molecule::prelude::Builder for SettlePendingTransferBuilder {
     }
 }
 #[derive(Clone)]
+pub struct PlainTx(molecule::bytes::Bytes);
+impl ::core::fmt::LowerHex for PlainTx {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        use molecule::hex_string;
+        if f.alternate() {
+            write!(f, "0x")?;
+        }
+        write!(f, "{}", hex_string(self.as_slice()))
+    }
+}
+impl ::core::fmt::Debug for PlainTx {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        write!(f, "{}({:#x})", Self::NAME, self)
+    }
+}
+impl ::core::fmt::Display for PlainTx {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        use molecule::hex_string;
+        let raw_data = hex_string(&self.raw_data());
+        write!(f, "{}(0x{})", Self::NAME, raw_data)
+    }
+}
+impl ::core::default::Default for PlainTx {
+    fn default() -> Self {
+        let v: Vec<u8> = vec![
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+        ];
+        PlainTx::new_unchecked(v.into())
+    }
+}
+impl PlainTx {
+    pub const ITEM_COUNT: usize = 208;
+    pub const ITEM_SIZE: usize = 1;
+    pub const TOTAL_SIZE: usize = 208;
+
+    pub fn nth0(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(0..1))
+    }
+
+    pub fn nth1(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(1..2))
+    }
+
+    pub fn nth2(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(2..3))
+    }
+
+    pub fn nth3(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(3..4))
+    }
+
+    pub fn nth4(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(4..5))
+    }
+
+    pub fn nth5(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(5..6))
+    }
+
+    pub fn nth6(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(6..7))
+    }
+
+    pub fn nth7(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(7..8))
+    }
+
+    pub fn nth8(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(8..9))
+    }
+
+    pub fn nth9(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(9..10))
+    }
+
+    pub fn nth10(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(10..11))
+    }
+
+    pub fn nth11(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(11..12))
+    }
+
+    pub fn nth12(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(12..13))
+    }
+
+    pub fn nth13(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(13..14))
+    }
+
+    pub fn nth14(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(14..15))
+    }
+
+    pub fn nth15(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(15..16))
+    }
+
+    pub fn nth16(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(16..17))
+    }
+
+    pub fn nth17(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(17..18))
+    }
+
+    pub fn nth18(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(18..19))
+    }
+
+    pub fn nth19(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(19..20))
+    }
+
+    pub fn nth20(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(20..21))
+    }
+
+    pub fn nth21(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(21..22))
+    }
+
+    pub fn nth22(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(22..23))
+    }
+
+    pub fn nth23(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(23..24))
+    }
+
+    pub fn nth24(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(24..25))
+    }
+
+    pub fn nth25(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(25..26))
+    }
+
+    pub fn nth26(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(26..27))
+    }
+
+    pub fn nth27(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(27..28))
+    }
+
+    pub fn nth28(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(28..29))
+    }
+
+    pub fn nth29(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(29..30))
+    }
+
+    pub fn nth30(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(30..31))
+    }
+
+    pub fn nth31(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(31..32))
+    }
+
+    pub fn nth32(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(32..33))
+    }
+
+    pub fn nth33(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(33..34))
+    }
+
+    pub fn nth34(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(34..35))
+    }
+
+    pub fn nth35(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(35..36))
+    }
+
+    pub fn nth36(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(36..37))
+    }
+
+    pub fn nth37(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(37..38))
+    }
+
+    pub fn nth38(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(38..39))
+    }
+
+    pub fn nth39(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(39..40))
+    }
+
+    pub fn nth40(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(40..41))
+    }
+
+    pub fn nth41(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(41..42))
+    }
+
+    pub fn nth42(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(42..43))
+    }
+
+    pub fn nth43(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(43..44))
+    }
+
+    pub fn nth44(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(44..45))
+    }
+
+    pub fn nth45(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(45..46))
+    }
+
+    pub fn nth46(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(46..47))
+    }
+
+    pub fn nth47(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(47..48))
+    }
+
+    pub fn nth48(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(48..49))
+    }
+
+    pub fn nth49(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(49..50))
+    }
+
+    pub fn nth50(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(50..51))
+    }
+
+    pub fn nth51(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(51..52))
+    }
+
+    pub fn nth52(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(52..53))
+    }
+
+    pub fn nth53(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(53..54))
+    }
+
+    pub fn nth54(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(54..55))
+    }
+
+    pub fn nth55(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(55..56))
+    }
+
+    pub fn nth56(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(56..57))
+    }
+
+    pub fn nth57(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(57..58))
+    }
+
+    pub fn nth58(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(58..59))
+    }
+
+    pub fn nth59(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(59..60))
+    }
+
+    pub fn nth60(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(60..61))
+    }
+
+    pub fn nth61(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(61..62))
+    }
+
+    pub fn nth62(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(62..63))
+    }
+
+    pub fn nth63(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(63..64))
+    }
+
+    pub fn nth64(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(64..65))
+    }
+
+    pub fn nth65(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(65..66))
+    }
+
+    pub fn nth66(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(66..67))
+    }
+
+    pub fn nth67(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(67..68))
+    }
+
+    pub fn nth68(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(68..69))
+    }
+
+    pub fn nth69(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(69..70))
+    }
+
+    pub fn nth70(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(70..71))
+    }
+
+    pub fn nth71(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(71..72))
+    }
+
+    pub fn nth72(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(72..73))
+    }
+
+    pub fn nth73(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(73..74))
+    }
+
+    pub fn nth74(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(74..75))
+    }
+
+    pub fn nth75(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(75..76))
+    }
+
+    pub fn nth76(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(76..77))
+    }
+
+    pub fn nth77(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(77..78))
+    }
+
+    pub fn nth78(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(78..79))
+    }
+
+    pub fn nth79(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(79..80))
+    }
+
+    pub fn nth80(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(80..81))
+    }
+
+    pub fn nth81(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(81..82))
+    }
+
+    pub fn nth82(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(82..83))
+    }
+
+    pub fn nth83(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(83..84))
+    }
+
+    pub fn nth84(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(84..85))
+    }
+
+    pub fn nth85(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(85..86))
+    }
+
+    pub fn nth86(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(86..87))
+    }
+
+    pub fn nth87(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(87..88))
+    }
+
+    pub fn nth88(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(88..89))
+    }
+
+    pub fn nth89(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(89..90))
+    }
+
+    pub fn nth90(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(90..91))
+    }
+
+    pub fn nth91(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(91..92))
+    }
+
+    pub fn nth92(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(92..93))
+    }
+
+    pub fn nth93(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(93..94))
+    }
+
+    pub fn nth94(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(94..95))
+    }
+
+    pub fn nth95(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(95..96))
+    }
+
+    pub fn nth96(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(96..97))
+    }
+
+    pub fn nth97(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(97..98))
+    }
+
+    pub fn nth98(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(98..99))
+    }
+
+    pub fn nth99(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(99..100))
+    }
+
+    pub fn nth100(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(100..101))
+    }
+
+    pub fn nth101(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(101..102))
+    }
+
+    pub fn nth102(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(102..103))
+    }
+
+    pub fn nth103(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(103..104))
+    }
+
+    pub fn nth104(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(104..105))
+    }
+
+    pub fn nth105(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(105..106))
+    }
+
+    pub fn nth106(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(106..107))
+    }
+
+    pub fn nth107(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(107..108))
+    }
+
+    pub fn nth108(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(108..109))
+    }
+
+    pub fn nth109(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(109..110))
+    }
+
+    pub fn nth110(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(110..111))
+    }
+
+    pub fn nth111(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(111..112))
+    }
+
+    pub fn nth112(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(112..113))
+    }
+
+    pub fn nth113(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(113..114))
+    }
+
+    pub fn nth114(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(114..115))
+    }
+
+    pub fn nth115(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(115..116))
+    }
+
+    pub fn nth116(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(116..117))
+    }
+
+    pub fn nth117(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(117..118))
+    }
+
+    pub fn nth118(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(118..119))
+    }
+
+    pub fn nth119(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(119..120))
+    }
+
+    pub fn nth120(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(120..121))
+    }
+
+    pub fn nth121(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(121..122))
+    }
+
+    pub fn nth122(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(122..123))
+    }
+
+    pub fn nth123(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(123..124))
+    }
+
+    pub fn nth124(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(124..125))
+    }
+
+    pub fn nth125(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(125..126))
+    }
+
+    pub fn nth126(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(126..127))
+    }
+
+    pub fn nth127(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(127..128))
+    }
+
+    pub fn nth128(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(128..129))
+    }
+
+    pub fn nth129(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(129..130))
+    }
+
+    pub fn nth130(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(130..131))
+    }
+
+    pub fn nth131(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(131..132))
+    }
+
+    pub fn nth132(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(132..133))
+    }
+
+    pub fn nth133(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(133..134))
+    }
+
+    pub fn nth134(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(134..135))
+    }
+
+    pub fn nth135(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(135..136))
+    }
+
+    pub fn nth136(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(136..137))
+    }
+
+    pub fn nth137(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(137..138))
+    }
+
+    pub fn nth138(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(138..139))
+    }
+
+    pub fn nth139(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(139..140))
+    }
+
+    pub fn nth140(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(140..141))
+    }
+
+    pub fn nth141(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(141..142))
+    }
+
+    pub fn nth142(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(142..143))
+    }
+
+    pub fn nth143(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(143..144))
+    }
+
+    pub fn nth144(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(144..145))
+    }
+
+    pub fn nth145(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(145..146))
+    }
+
+    pub fn nth146(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(146..147))
+    }
+
+    pub fn nth147(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(147..148))
+    }
+
+    pub fn nth148(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(148..149))
+    }
+
+    pub fn nth149(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(149..150))
+    }
+
+    pub fn nth150(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(150..151))
+    }
+
+    pub fn nth151(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(151..152))
+    }
+
+    pub fn nth152(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(152..153))
+    }
+
+    pub fn nth153(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(153..154))
+    }
+
+    pub fn nth154(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(154..155))
+    }
+
+    pub fn nth155(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(155..156))
+    }
+
+    pub fn nth156(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(156..157))
+    }
+
+    pub fn nth157(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(157..158))
+    }
+
+    pub fn nth158(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(158..159))
+    }
+
+    pub fn nth159(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(159..160))
+    }
+
+    pub fn nth160(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(160..161))
+    }
+
+    pub fn nth161(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(161..162))
+    }
+
+    pub fn nth162(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(162..163))
+    }
+
+    pub fn nth163(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(163..164))
+    }
+
+    pub fn nth164(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(164..165))
+    }
+
+    pub fn nth165(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(165..166))
+    }
+
+    pub fn nth166(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(166..167))
+    }
+
+    pub fn nth167(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(167..168))
+    }
+
+    pub fn nth168(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(168..169))
+    }
+
+    pub fn nth169(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(169..170))
+    }
+
+    pub fn nth170(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(170..171))
+    }
+
+    pub fn nth171(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(171..172))
+    }
+
+    pub fn nth172(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(172..173))
+    }
+
+    pub fn nth173(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(173..174))
+    }
+
+    pub fn nth174(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(174..175))
+    }
+
+    pub fn nth175(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(175..176))
+    }
+
+    pub fn nth176(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(176..177))
+    }
+
+    pub fn nth177(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(177..178))
+    }
+
+    pub fn nth178(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(178..179))
+    }
+
+    pub fn nth179(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(179..180))
+    }
+
+    pub fn nth180(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(180..181))
+    }
+
+    pub fn nth181(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(181..182))
+    }
+
+    pub fn nth182(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(182..183))
+    }
+
+    pub fn nth183(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(183..184))
+    }
+
+    pub fn nth184(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(184..185))
+    }
+
+    pub fn nth185(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(185..186))
+    }
+
+    pub fn nth186(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(186..187))
+    }
+
+    pub fn nth187(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(187..188))
+    }
+
+    pub fn nth188(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(188..189))
+    }
+
+    pub fn nth189(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(189..190))
+    }
+
+    pub fn nth190(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(190..191))
+    }
+
+    pub fn nth191(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(191..192))
+    }
+
+    pub fn nth192(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(192..193))
+    }
+
+    pub fn nth193(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(193..194))
+    }
+
+    pub fn nth194(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(194..195))
+    }
+
+    pub fn nth195(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(195..196))
+    }
+
+    pub fn nth196(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(196..197))
+    }
+
+    pub fn nth197(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(197..198))
+    }
+
+    pub fn nth198(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(198..199))
+    }
+
+    pub fn nth199(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(199..200))
+    }
+
+    pub fn nth200(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(200..201))
+    }
+
+    pub fn nth201(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(201..202))
+    }
+
+    pub fn nth202(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(202..203))
+    }
+
+    pub fn nth203(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(203..204))
+    }
+
+    pub fn nth204(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(204..205))
+    }
+
+    pub fn nth205(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(205..206))
+    }
+
+    pub fn nth206(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(206..207))
+    }
+
+    pub fn nth207(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(207..208))
+    }
+
+    pub fn raw_data(&self) -> molecule::bytes::Bytes {
+        self.as_bytes()
+    }
+
+    pub fn as_reader<'r>(&'r self) -> PlainTxReader<'r> {
+        PlainTxReader::new_unchecked(self.as_slice())
+    }
+}
+impl molecule::prelude::Entity for PlainTx {
+    type Builder = PlainTxBuilder;
+
+    const NAME: &'static str = "PlainTx";
+
+    fn new_unchecked(data: molecule::bytes::Bytes) -> Self {
+        PlainTx(data)
+    }
+
+    fn as_bytes(&self) -> molecule::bytes::Bytes {
+        self.0.clone()
+    }
+
+    fn as_slice(&self) -> &[u8] {
+        &self.0[..]
+    }
+
+    fn from_slice(slice: &[u8]) -> molecule::error::VerificationResult<Self> {
+        PlainTxReader::from_slice(slice).map(|reader| reader.to_entity())
+    }
+
+    fn from_compatible_slice(slice: &[u8]) -> molecule::error::VerificationResult<Self> {
+        PlainTxReader::from_compatible_slice(slice).map(|reader| reader.to_entity())
+    }
+
+    fn new_builder() -> Self::Builder {
+        ::core::default::Default::default()
+    }
+
+    fn as_builder(self) -> Self::Builder {
+        Self::new_builder().set([
+            self.nth0(),
+            self.nth1(),
+            self.nth2(),
+            self.nth3(),
+            self.nth4(),
+            self.nth5(),
+            self.nth6(),
+            self.nth7(),
+            self.nth8(),
+            self.nth9(),
+            self.nth10(),
+            self.nth11(),
+            self.nth12(),
+            self.nth13(),
+            self.nth14(),
+            self.nth15(),
+            self.nth16(),
+            self.nth17(),
+            self.nth18(),
+            self.nth19(),
+            self.nth20(),
+            self.nth21(),
+            self.nth22(),
+            self.nth23(),
+            self.nth24(),
+            self.nth25(),
+            self.nth26(),
+            self.nth27(),
+            self.nth28(),
+            self.nth29(),
+            self.nth30(),
+            self.nth31(),
+            self.nth32(),
+            self.nth33(),
+            self.nth34(),
+            self.nth35(),
+            self.nth36(),
+            self.nth37(),
+            self.nth38(),
+            self.nth39(),
+            self.nth40(),
+            self.nth41(),
+            self.nth42(),
+            self.nth43(),
+            self.nth44(),
+            self.nth45(),
+            self.nth46(),
+            self.nth47(),
+            self.nth48(),
+            self.nth49(),
+            self.nth50(),
+            self.nth51(),
+            self.nth52(),
+            self.nth53(),
+            self.nth54(),
+            self.nth55(),
+            self.nth56(),
+            self.nth57(),
+            self.nth58(),
+            self.nth59(),
+            self.nth60(),
+            self.nth61(),
+            self.nth62(),
+            self.nth63(),
+            self.nth64(),
+            self.nth65(),
+            self.nth66(),
+            self.nth67(),
+            self.nth68(),
+            self.nth69(),
+            self.nth70(),
+            self.nth71(),
+            self.nth72(),
+            self.nth73(),
+            self.nth74(),
+            self.nth75(),
+            self.nth76(),
+            self.nth77(),
+            self.nth78(),
+            self.nth79(),
+            self.nth80(),
+            self.nth81(),
+            self.nth82(),
+            self.nth83(),
+            self.nth84(),
+            self.nth85(),
+            self.nth86(),
+            self.nth87(),
+            self.nth88(),
+            self.nth89(),
+            self.nth90(),
+            self.nth91(),
+            self.nth92(),
+            self.nth93(),
+            self.nth94(),
+            self.nth95(),
+            self.nth96(),
+            self.nth97(),
+            self.nth98(),
+            self.nth99(),
+            self.nth100(),
+            self.nth101(),
+            self.nth102(),
+            self.nth103(),
+            self.nth104(),
+            self.nth105(),
+            self.nth106(),
+            self.nth107(),
+            self.nth108(),
+            self.nth109(),
+            self.nth110(),
+            self.nth111(),
+            self.nth112(),
+            self.nth113(),
+            self.nth114(),
+            self.nth115(),
+            self.nth116(),
+            self.nth117(),
+            self.nth118(),
+            self.nth119(),
+            self.nth120(),
+            self.nth121(),
+            self.nth122(),
+            self.nth123(),
+            self.nth124(),
+            self.nth125(),
+            self.nth126(),
+            self.nth127(),
+            self.nth128(),
+            self.nth129(),
+            self.nth130(),
+            self.nth131(),
+            self.nth132(),
+            self.nth133(),
+            self.nth134(),
+            self.nth135(),
+            self.nth136(),
+            self.nth137(),
+            self.nth138(),
+            self.nth139(),
+            self.nth140(),
+            self.nth141(),
+            self.nth142(),
+            self.nth143(),
+            self.nth144(),
+            self.nth145(),
+            self.nth146(),
+            self.nth147(),
+            self.nth148(),
+            self.nth149(),
+            self.nth150(),
+            self.nth151(),
+            self.nth152(),
+            self.nth153(),
+            self.nth154(),
+            self.nth155(),
+            self.nth156(),
+            self.nth157(),
+            self.nth158(),
+            self.nth159(),
+            self.nth160(),
+            self.nth161(),
+            self.nth162(),
+            self.nth163(),
+            self.nth164(),
+            self.nth165(),
+            self.nth166(),
+            self.nth167(),
+            self.nth168(),
+            self.nth169(),
+            self.nth170(),
+            self.nth171(),
+            self.nth172(),
+            self.nth173(),
+            self.nth174(),
+            self.nth175(),
+            self.nth176(),
+            self.nth177(),
+            self.nth178(),
+            self.nth179(),
+            self.nth180(),
+            self.nth181(),
+            self.nth182(),
+            self.nth183(),
+            self.nth184(),
+            self.nth185(),
+            self.nth186(),
+            self.nth187(),
+            self.nth188(),
+            self.nth189(),
+            self.nth190(),
+            self.nth191(),
+            self.nth192(),
+            self.nth193(),
+            self.nth194(),
+            self.nth195(),
+            self.nth196(),
+            self.nth197(),
+            self.nth198(),
+            self.nth199(),
+            self.nth200(),
+            self.nth201(),
+            self.nth202(),
+            self.nth203(),
+            self.nth204(),
+            self.nth205(),
+            self.nth206(),
+            self.nth207(),
+        ])
+    }
+}
+#[derive(Clone, Copy)]
+pub struct PlainTxReader<'r>(&'r [u8]);
+impl<'r> ::core::fmt::LowerHex for PlainTxReader<'r> {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        use molecule::hex_string;
+        if f.alternate() {
+            write!(f, "0x")?;
+        }
+        write!(f, "{}", hex_string(self.as_slice()))
+    }
+}
+impl<'r> ::core::fmt::Debug for PlainTxReader<'r> {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        write!(f, "{}({:#x})", Self::NAME, self)
+    }
+}
+impl<'r> ::core::fmt::Display for PlainTxReader<'r> {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        use molecule::hex_string;
+        let raw_data = hex_string(&self.raw_data());
+        write!(f, "{}(0x{})", Self::NAME, raw_data)
+    }
+}
+impl<'r> PlainTxReader<'r> {
+    pub const ITEM_COUNT: usize = 208;
+    pub const ITEM_SIZE: usize = 1;
+    pub const TOTAL_SIZE: usize = 208;
+
+    pub fn nth0(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[0..1])
+    }
+
+    pub fn nth1(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[1..2])
+    }
+
+    pub fn nth2(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[2..3])
+    }
+
+    pub fn nth3(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[3..4])
+    }
+
+    pub fn nth4(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[4..5])
+    }
+
+    pub fn nth5(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[5..6])
+    }
+
+    pub fn nth6(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[6..7])
+    }
+
+    pub fn nth7(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[7..8])
+    }
+
+    pub fn nth8(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[8..9])
+    }
+
+    pub fn nth9(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[9..10])
+    }
+
+    pub fn nth10(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[10..11])
+    }
+
+    pub fn nth11(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[11..12])
+    }
+
+    pub fn nth12(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[12..13])
+    }
+
+    pub fn nth13(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[13..14])
+    }
+
+    pub fn nth14(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[14..15])
+    }
+
+    pub fn nth15(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[15..16])
+    }
+
+    pub fn nth16(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[16..17])
+    }
+
+    pub fn nth17(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[17..18])
+    }
+
+    pub fn nth18(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[18..19])
+    }
+
+    pub fn nth19(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[19..20])
+    }
+
+    pub fn nth20(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[20..21])
+    }
+
+    pub fn nth21(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[21..22])
+    }
+
+    pub fn nth22(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[22..23])
+    }
+
+    pub fn nth23(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[23..24])
+    }
+
+    pub fn nth24(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[24..25])
+    }
+
+    pub fn nth25(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[25..26])
+    }
+
+    pub fn nth26(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[26..27])
+    }
+
+    pub fn nth27(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[27..28])
+    }
+
+    pub fn nth28(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[28..29])
+    }
+
+    pub fn nth29(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[29..30])
+    }
+
+    pub fn nth30(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[30..31])
+    }
+
+    pub fn nth31(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[31..32])
+    }
+
+    pub fn nth32(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[32..33])
+    }
+
+    pub fn nth33(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[33..34])
+    }
+
+    pub fn nth34(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[34..35])
+    }
+
+    pub fn nth35(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[35..36])
+    }
+
+    pub fn nth36(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[36..37])
+    }
+
+    pub fn nth37(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[37..38])
+    }
+
+    pub fn nth38(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[38..39])
+    }
+
+    pub fn nth39(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[39..40])
+    }
+
+    pub fn nth40(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[40..41])
+    }
+
+    pub fn nth41(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[41..42])
+    }
+
+    pub fn nth42(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[42..43])
+    }
+
+    pub fn nth43(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[43..44])
+    }
+
+    pub fn nth44(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[44..45])
+    }
+
+    pub fn nth45(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[45..46])
+    }
+
+    pub fn nth46(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[46..47])
+    }
+
+    pub fn nth47(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[47..48])
+    }
+
+    pub fn nth48(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[48..49])
+    }
+
+    pub fn nth49(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[49..50])
+    }
+
+    pub fn nth50(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[50..51])
+    }
+
+    pub fn nth51(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[51..52])
+    }
+
+    pub fn nth52(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[52..53])
+    }
+
+    pub fn nth53(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[53..54])
+    }
+
+    pub fn nth54(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[54..55])
+    }
+
+    pub fn nth55(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[55..56])
+    }
+
+    pub fn nth56(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[56..57])
+    }
+
+    pub fn nth57(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[57..58])
+    }
+
+    pub fn nth58(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[58..59])
+    }
+
+    pub fn nth59(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[59..60])
+    }
+
+    pub fn nth60(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[60..61])
+    }
+
+    pub fn nth61(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[61..62])
+    }
+
+    pub fn nth62(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[62..63])
+    }
+
+    pub fn nth63(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[63..64])
+    }
+
+    pub fn nth64(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[64..65])
+    }
+
+    pub fn nth65(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[65..66])
+    }
+
+    pub fn nth66(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[66..67])
+    }
+
+    pub fn nth67(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[67..68])
+    }
+
+    pub fn nth68(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[68..69])
+    }
+
+    pub fn nth69(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[69..70])
+    }
+
+    pub fn nth70(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[70..71])
+    }
+
+    pub fn nth71(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[71..72])
+    }
+
+    pub fn nth72(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[72..73])
+    }
+
+    pub fn nth73(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[73..74])
+    }
+
+    pub fn nth74(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[74..75])
+    }
+
+    pub fn nth75(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[75..76])
+    }
+
+    pub fn nth76(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[76..77])
+    }
+
+    pub fn nth77(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[77..78])
+    }
+
+    pub fn nth78(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[78..79])
+    }
+
+    pub fn nth79(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[79..80])
+    }
+
+    pub fn nth80(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[80..81])
+    }
+
+    pub fn nth81(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[81..82])
+    }
+
+    pub fn nth82(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[82..83])
+    }
+
+    pub fn nth83(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[83..84])
+    }
+
+    pub fn nth84(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[84..85])
+    }
+
+    pub fn nth85(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[85..86])
+    }
+
+    pub fn nth86(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[86..87])
+    }
+
+    pub fn nth87(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[87..88])
+    }
+
+    pub fn nth88(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[88..89])
+    }
+
+    pub fn nth89(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[89..90])
+    }
+
+    pub fn nth90(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[90..91])
+    }
+
+    pub fn nth91(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[91..92])
+    }
+
+    pub fn nth92(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[92..93])
+    }
+
+    pub fn nth93(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[93..94])
+    }
+
+    pub fn nth94(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[94..95])
+    }
+
+    pub fn nth95(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[95..96])
+    }
+
+    pub fn nth96(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[96..97])
+    }
+
+    pub fn nth97(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[97..98])
+    }
+
+    pub fn nth98(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[98..99])
+    }
+
+    pub fn nth99(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[99..100])
+    }
+
+    pub fn nth100(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[100..101])
+    }
+
+    pub fn nth101(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[101..102])
+    }
+
+    pub fn nth102(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[102..103])
+    }
+
+    pub fn nth103(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[103..104])
+    }
+
+    pub fn nth104(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[104..105])
+    }
+
+    pub fn nth105(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[105..106])
+    }
+
+    pub fn nth106(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[106..107])
+    }
+
+    pub fn nth107(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[107..108])
+    }
+
+    pub fn nth108(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[108..109])
+    }
+
+    pub fn nth109(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[109..110])
+    }
+
+    pub fn nth110(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[110..111])
+    }
+
+    pub fn nth111(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[111..112])
+    }
+
+    pub fn nth112(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[112..113])
+    }
+
+    pub fn nth113(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[113..114])
+    }
+
+    pub fn nth114(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[114..115])
+    }
+
+    pub fn nth115(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[115..116])
+    }
+
+    pub fn nth116(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[116..117])
+    }
+
+    pub fn nth117(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[117..118])
+    }
+
+    pub fn nth118(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[118..119])
+    }
+
+    pub fn nth119(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[119..120])
+    }
+
+    pub fn nth120(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[120..121])
+    }
+
+    pub fn nth121(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[121..122])
+    }
+
+    pub fn nth122(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[122..123])
+    }
+
+    pub fn nth123(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[123..124])
+    }
+
+    pub fn nth124(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[124..125])
+    }
+
+    pub fn nth125(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[125..126])
+    }
+
+    pub fn nth126(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[126..127])
+    }
+
+    pub fn nth127(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[127..128])
+    }
+
+    pub fn nth128(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[128..129])
+    }
+
+    pub fn nth129(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[129..130])
+    }
+
+    pub fn nth130(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[130..131])
+    }
+
+    pub fn nth131(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[131..132])
+    }
+
+    pub fn nth132(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[132..133])
+    }
+
+    pub fn nth133(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[133..134])
+    }
+
+    pub fn nth134(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[134..135])
+    }
+
+    pub fn nth135(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[135..136])
+    }
+
+    pub fn nth136(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[136..137])
+    }
+
+    pub fn nth137(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[137..138])
+    }
+
+    pub fn nth138(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[138..139])
+    }
+
+    pub fn nth139(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[139..140])
+    }
+
+    pub fn nth140(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[140..141])
+    }
+
+    pub fn nth141(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[141..142])
+    }
+
+    pub fn nth142(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[142..143])
+    }
+
+    pub fn nth143(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[143..144])
+    }
+
+    pub fn nth144(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[144..145])
+    }
+
+    pub fn nth145(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[145..146])
+    }
+
+    pub fn nth146(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[146..147])
+    }
+
+    pub fn nth147(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[147..148])
+    }
+
+    pub fn nth148(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[148..149])
+    }
+
+    pub fn nth149(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[149..150])
+    }
+
+    pub fn nth150(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[150..151])
+    }
+
+    pub fn nth151(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[151..152])
+    }
+
+    pub fn nth152(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[152..153])
+    }
+
+    pub fn nth153(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[153..154])
+    }
+
+    pub fn nth154(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[154..155])
+    }
+
+    pub fn nth155(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[155..156])
+    }
+
+    pub fn nth156(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[156..157])
+    }
+
+    pub fn nth157(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[157..158])
+    }
+
+    pub fn nth158(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[158..159])
+    }
+
+    pub fn nth159(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[159..160])
+    }
+
+    pub fn nth160(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[160..161])
+    }
+
+    pub fn nth161(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[161..162])
+    }
+
+    pub fn nth162(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[162..163])
+    }
+
+    pub fn nth163(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[163..164])
+    }
+
+    pub fn nth164(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[164..165])
+    }
+
+    pub fn nth165(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[165..166])
+    }
+
+    pub fn nth166(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[166..167])
+    }
+
+    pub fn nth167(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[167..168])
+    }
+
+    pub fn nth168(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[168..169])
+    }
+
+    pub fn nth169(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[169..170])
+    }
+
+    pub fn nth170(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[170..171])
+    }
+
+    pub fn nth171(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[171..172])
+    }
+
+    pub fn nth172(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[172..173])
+    }
+
+    pub fn nth173(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[173..174])
+    }
+
+    pub fn nth174(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[174..175])
+    }
+
+    pub fn nth175(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[175..176])
+    }
+
+    pub fn nth176(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[176..177])
+    }
+
+    pub fn nth177(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[177..178])
+    }
+
+    pub fn nth178(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[178..179])
+    }
+
+    pub fn nth179(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[179..180])
+    }
+
+    pub fn nth180(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[180..181])
+    }
+
+    pub fn nth181(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[181..182])
+    }
+
+    pub fn nth182(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[182..183])
+    }
+
+    pub fn nth183(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[183..184])
+    }
+
+    pub fn nth184(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[184..185])
+    }
+
+    pub fn nth185(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[185..186])
+    }
+
+    pub fn nth186(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[186..187])
+    }
+
+    pub fn nth187(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[187..188])
+    }
+
+    pub fn nth188(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[188..189])
+    }
+
+    pub fn nth189(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[189..190])
+    }
+
+    pub fn nth190(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[190..191])
+    }
+
+    pub fn nth191(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[191..192])
+    }
+
+    pub fn nth192(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[192..193])
+    }
+
+    pub fn nth193(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[193..194])
+    }
+
+    pub fn nth194(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[194..195])
+    }
+
+    pub fn nth195(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[195..196])
+    }
+
+    pub fn nth196(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[196..197])
+    }
+
+    pub fn nth197(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[197..198])
+    }
+
+    pub fn nth198(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[198..199])
+    }
+
+    pub fn nth199(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[199..200])
+    }
+
+    pub fn nth200(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[200..201])
+    }
+
+    pub fn nth201(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[201..202])
+    }
+
+    pub fn nth202(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[202..203])
+    }
+
+    pub fn nth203(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[203..204])
+    }
+
+    pub fn nth204(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[204..205])
+    }
+
+    pub fn nth205(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[205..206])
+    }
+
+    pub fn nth206(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[206..207])
+    }
+
+    pub fn nth207(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[207..208])
+    }
+
+    pub fn raw_data(&self) -> &'r [u8] {
+        self.as_slice()
+    }
+}
+impl<'r> molecule::prelude::Reader<'r> for PlainTxReader<'r> {
+    type Entity = PlainTx;
+
+    const NAME: &'static str = "PlainTxReader";
+
+    fn to_entity(&self) -> Self::Entity {
+        Self::Entity::new_unchecked(self.as_slice().to_owned().into())
+    }
+
+    fn new_unchecked(slice: &'r [u8]) -> Self {
+        PlainTxReader(slice)
+    }
+
+    fn as_slice(&self) -> &'r [u8] {
+        self.0
+    }
+
+    fn verify(slice: &[u8], _compatible: bool) -> molecule::error::VerificationResult<()> {
+        use molecule::verification_error as ve;
+        let slice_len = slice.len();
+        if slice_len != Self::TOTAL_SIZE {
+            return ve!(Self, TotalSizeNotMatch, Self::TOTAL_SIZE, slice_len);
+        }
+        Ok(())
+    }
+}
+pub struct PlainTxBuilder(pub(crate) [Byte; 208]);
+impl ::core::fmt::Debug for PlainTxBuilder {
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        write!(f, "{}({:?})", Self::NAME, &self.0[..])
+    }
+}
+impl ::core::default::Default for PlainTxBuilder {
+    fn default() -> Self {
+        PlainTxBuilder([
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+            Byte::default(),
+        ])
+    }
+}
+impl PlainTxBuilder {
+    pub const ITEM_COUNT: usize = 208;
+    pub const ITEM_SIZE: usize = 1;
+    pub const TOTAL_SIZE: usize = 208;
+
+    pub fn set(mut self, v: [Byte; 208]) -> Self {
+        self.0 = v;
+        self
+    }
+
+    pub fn nth0(mut self, v: Byte) -> Self {
+        self.0[0] = v;
+        self
+    }
+
+    pub fn nth1(mut self, v: Byte) -> Self {
+        self.0[1] = v;
+        self
+    }
+
+    pub fn nth2(mut self, v: Byte) -> Self {
+        self.0[2] = v;
+        self
+    }
+
+    pub fn nth3(mut self, v: Byte) -> Self {
+        self.0[3] = v;
+        self
+    }
+
+    pub fn nth4(mut self, v: Byte) -> Self {
+        self.0[4] = v;
+        self
+    }
+
+    pub fn nth5(mut self, v: Byte) -> Self {
+        self.0[5] = v;
+        self
+    }
+
+    pub fn nth6(mut self, v: Byte) -> Self {
+        self.0[6] = v;
+        self
+    }
+
+    pub fn nth7(mut self, v: Byte) -> Self {
+        self.0[7] = v;
+        self
+    }
+
+    pub fn nth8(mut self, v: Byte) -> Self {
+        self.0[8] = v;
+        self
+    }
+
+    pub fn nth9(mut self, v: Byte) -> Self {
+        self.0[9] = v;
+        self
+    }
+
+    pub fn nth10(mut self, v: Byte) -> Self {
+        self.0[10] = v;
+        self
+    }
+
+    pub fn nth11(mut self, v: Byte) -> Self {
+        self.0[11] = v;
+        self
+    }
+
+    pub fn nth12(mut self, v: Byte) -> Self {
+        self.0[12] = v;
+        self
+    }
+
+    pub fn nth13(mut self, v: Byte) -> Self {
+        self.0[13] = v;
+        self
+    }
+
+    pub fn nth14(mut self, v: Byte) -> Self {
+        self.0[14] = v;
+        self
+    }
+
+    pub fn nth15(mut self, v: Byte) -> Self {
+        self.0[15] = v;
+        self
+    }
+
+    pub fn nth16(mut self, v: Byte) -> Self {
+        self.0[16] = v;
+        self
+    }
+
+    pub fn nth17(mut self, v: Byte) -> Self {
+        self.0[17] = v;
+        self
+    }
+
+    pub fn nth18(mut self, v: Byte) -> Self {
+        self.0[18] = v;
+        self
+    }
+
+    pub fn nth19(mut self, v: Byte) -> Self {
+        self.0[19] = v;
+        self
+    }
+
+    pub fn nth20(mut self, v: Byte) -> Self {
+        self.0[20] = v;
+        self
+    }
+
+    pub fn nth21(mut self, v: Byte) -> Self {
+        self.0[21] = v;
+        self
+    }
+
+    pub fn nth22(mut self, v: Byte) -> Self {
+        self.0[22] = v;
+        self
+    }
+
+    pub fn nth23(mut self, v: Byte) -> Self {
+        self.0[23] = v;
+        self
+    }
+
+    pub fn nth24(mut self, v: Byte) -> Self {
+        self.0[24] = v;
+        self
+    }
+
+    pub fn nth25(mut self, v: Byte) -> Self {
+        self.0[25] = v;
+        self
+    }
+
+    pub fn nth26(mut self, v: Byte) -> Self {
+        self.0[26] = v;
+        self
+    }
+
+    pub fn nth27(mut self, v: Byte) -> Self {
+        self.0[27] = v;
+        self
+    }
+
+    pub fn nth28(mut self, v: Byte) -> Self {
+        self.0[28] = v;
+        self
+    }
+
+    pub fn nth29(mut self, v: Byte) -> Self {
+        self.0[29] = v;
+        self
+    }
+
+    pub fn nth30(mut self, v: Byte) -> Self {
+        self.0[30] = v;
+        self
+    }
+
+    pub fn nth31(mut self, v: Byte) -> Self {
+        self.0[31] = v;
+        self
+    }
+
+    pub fn nth32(mut self, v: Byte) -> Self {
+        self.0[32] = v;
+        self
+    }
+
+    pub fn nth33(mut self, v: Byte) -> Self {
+        self.0[33] = v;
+        self
+    }
+
+    pub fn nth34(mut self, v: Byte) -> Self {
+        self.0[34] = v;
+        self
+    }
+
+    pub fn nth35(mut self, v: Byte) -> Self {
+        self.0[35] = v;
+        self
+    }
+
+    pub fn nth36(mut self, v: Byte) -> Self {
+        self.0[36] = v;
+        self
+    }
+
+    pub fn nth37(mut self, v: Byte) -> Self {
+        self.0[37] = v;
+        self
+    }
+
+    pub fn nth38(mut self, v: Byte) -> Self {
+        self.0[38] = v;
+        self
+    }
+
+    pub fn nth39(mut self, v: Byte) -> Self {
+        self.0[39] = v;
+        self
+    }
+
+    pub fn nth40(mut self, v: Byte) -> Self {
+        self.0[40] = v;
+        self
+    }
+
+    pub fn nth41(mut self, v: Byte) -> Self {
+        self.0[41] = v;
+        self
+    }
+
+    pub fn nth42(mut self, v: Byte) -> Self {
+        self.0[42] = v;
+        self
+    }
+
+    pub fn nth43(mut self, v: Byte) -> Self {
+        self.0[43] = v;
+        self
+    }
+
+    pub fn nth44(mut self, v: Byte) -> Self {
+        self.0[44] = v;
+        self
+    }
+
+    pub fn nth45(mut self, v: Byte) -> Self {
+        self.0[45] = v;
+        self
+    }
+
+    pub fn nth46(mut self, v: Byte) -> Self {
+        self.0[46] = v;
+        self
+    }
+
+    pub fn nth47(mut self, v: Byte) -> Self {
+        self.0[47] = v;
+        self
+    }
+
+    pub fn nth48(mut self, v: Byte) -> Self {
+        self.0[48] = v;
+        self
+    }
+
+    pub fn nth49(mut self, v: Byte) -> Self {
+        self.0[49] = v;
+        self
+    }
+
+    pub fn nth50(mut self, v: Byte) -> Self {
+        self.0[50] = v;
+        self
+    }
+
+    pub fn nth51(mut self, v: Byte) -> Self {
+        self.0[51] = v;
+        self
+    }
+
+    pub fn nth52(mut self, v: Byte) -> Self {
+        self.0[52] = v;
+        self
+    }
+
+    pub fn nth53(mut self, v: Byte) -> Self {
+        self.0[53] = v;
+        self
+    }
+
+    pub fn nth54(mut self, v: Byte) -> Self {
+        self.0[54] = v;
+        self
+    }
+
+    pub fn nth55(mut self, v: Byte) -> Self {
+        self.0[55] = v;
+        self
+    }
+
+    pub fn nth56(mut self, v: Byte) -> Self {
+        self.0[56] = v;
+        self
+    }
+
+    pub fn nth57(mut self, v: Byte) -> Self {
+        self.0[57] = v;
+        self
+    }
+
+    pub fn nth58(mut self, v: Byte) -> Self {
+        self.0[58] = v;
+        self
+    }
+
+    pub fn nth59(mut self, v: Byte) -> Self {
+        self.0[59] = v;
+        self
+    }
+
+    pub fn nth60(mut self, v: Byte) -> Self {
+        self.0[60] = v;
+        self
+    }
+
+    pub fn nth61(mut self, v: Byte) -> Self {
+        self.0[61] = v;
+        self
+    }
+
+    pub fn nth62(mut self, v: Byte) -> Self {
+        self.0[62] = v;
+        self
+    }
+
+    pub fn nth63(mut self, v: Byte) -> Self {
+        self.0[63] = v;
+        self
+    }
+
+    pub fn nth64(mut self, v: Byte) -> Self {
+        self.0[64] = v;
+        self
+    }
+
+    pub fn nth65(mut self, v: Byte) -> Self {
+        self.0[65] = v;
+        self
+    }
+
+    pub fn nth66(mut self, v: Byte) -> Self {
+        self.0[66] = v;
+        self
+    }
+
+    pub fn nth67(mut self, v: Byte) -> Self {
+        self.0[67] = v;
+        self
+    }
+
+    pub fn nth68(mut self, v: Byte) -> Self {
+        self.0[68] = v;
+        self
+    }
+
+    pub fn nth69(mut self, v: Byte) -> Self {
+        self.0[69] = v;
+        self
+    }
+
+    pub fn nth70(mut self, v: Byte) -> Self {
+        self.0[70] = v;
+        self
+    }
+
+    pub fn nth71(mut self, v: Byte) -> Self {
+        self.0[71] = v;
+        self
+    }
+
+    pub fn nth72(mut self, v: Byte) -> Self {
+        self.0[72] = v;
+        self
+    }
+
+    pub fn nth73(mut self, v: Byte) -> Self {
+        self.0[73] = v;
+        self
+    }
+
+    pub fn nth74(mut self, v: Byte) -> Self {
+        self.0[74] = v;
+        self
+    }
+
+    pub fn nth75(mut self, v: Byte) -> Self {
+        self.0[75] = v;
+        self
+    }
+
+    pub fn nth76(mut self, v: Byte) -> Self {
+        self.0[76] = v;
+        self
+    }
+
+    pub fn nth77(mut self, v: Byte) -> Self {
+        self.0[77] = v;
+        self
+    }
+
+    pub fn nth78(mut self, v: Byte) -> Self {
+        self.0[78] = v;
+        self
+    }
+
+    pub fn nth79(mut self, v: Byte) -> Self {
+        self.0[79] = v;
+        self
+    }
+
+    pub fn nth80(mut self, v: Byte) -> Self {
+        self.0[80] = v;
+        self
+    }
+
+    pub fn nth81(mut self, v: Byte) -> Self {
+        self.0[81] = v;
+        self
+    }
+
+    pub fn nth82(mut self, v: Byte) -> Self {
+        self.0[82] = v;
+        self
+    }
+
+    pub fn nth83(mut self, v: Byte) -> Self {
+        self.0[83] = v;
+        self
+    }
+
+    pub fn nth84(mut self, v: Byte) -> Self {
+        self.0[84] = v;
+        self
+    }
+
+    pub fn nth85(mut self, v: Byte) -> Self {
+        self.0[85] = v;
+        self
+    }
+
+    pub fn nth86(mut self, v: Byte) -> Self {
+        self.0[86] = v;
+        self
+    }
+
+    pub fn nth87(mut self, v: Byte) -> Self {
+        self.0[87] = v;
+        self
+    }
+
+    pub fn nth88(mut self, v: Byte) -> Self {
+        self.0[88] = v;
+        self
+    }
+
+    pub fn nth89(mut self, v: Byte) -> Self {
+        self.0[89] = v;
+        self
+    }
+
+    pub fn nth90(mut self, v: Byte) -> Self {
+        self.0[90] = v;
+        self
+    }
+
+    pub fn nth91(mut self, v: Byte) -> Self {
+        self.0[91] = v;
+        self
+    }
+
+    pub fn nth92(mut self, v: Byte) -> Self {
+        self.0[92] = v;
+        self
+    }
+
+    pub fn nth93(mut self, v: Byte) -> Self {
+        self.0[93] = v;
+        self
+    }
+
+    pub fn nth94(mut self, v: Byte) -> Self {
+        self.0[94] = v;
+        self
+    }
+
+    pub fn nth95(mut self, v: Byte) -> Self {
+        self.0[95] = v;
+        self
+    }
+
+    pub fn nth96(mut self, v: Byte) -> Self {
+        self.0[96] = v;
+        self
+    }
+
+    pub fn nth97(mut self, v: Byte) -> Self {
+        self.0[97] = v;
+        self
+    }
+
+    pub fn nth98(mut self, v: Byte) -> Self {
+        self.0[98] = v;
+        self
+    }
+
+    pub fn nth99(mut self, v: Byte) -> Self {
+        self.0[99] = v;
+        self
+    }
+
+    pub fn nth100(mut self, v: Byte) -> Self {
+        self.0[100] = v;
+        self
+    }
+
+    pub fn nth101(mut self, v: Byte) -> Self {
+        self.0[101] = v;
+        self
+    }
+
+    pub fn nth102(mut self, v: Byte) -> Self {
+        self.0[102] = v;
+        self
+    }
+
+    pub fn nth103(mut self, v: Byte) -> Self {
+        self.0[103] = v;
+        self
+    }
+
+    pub fn nth104(mut self, v: Byte) -> Self {
+        self.0[104] = v;
+        self
+    }
+
+    pub fn nth105(mut self, v: Byte) -> Self {
+        self.0[105] = v;
+        self
+    }
+
+    pub fn nth106(mut self, v: Byte) -> Self {
+        self.0[106] = v;
+        self
+    }
+
+    pub fn nth107(mut self, v: Byte) -> Self {
+        self.0[107] = v;
+        self
+    }
+
+    pub fn nth108(mut self, v: Byte) -> Self {
+        self.0[108] = v;
+        self
+    }
+
+    pub fn nth109(mut self, v: Byte) -> Self {
+        self.0[109] = v;
+        self
+    }
+
+    pub fn nth110(mut self, v: Byte) -> Self {
+        self.0[110] = v;
+        self
+    }
+
+    pub fn nth111(mut self, v: Byte) -> Self {
+        self.0[111] = v;
+        self
+    }
+
+    pub fn nth112(mut self, v: Byte) -> Self {
+        self.0[112] = v;
+        self
+    }
+
+    pub fn nth113(mut self, v: Byte) -> Self {
+        self.0[113] = v;
+        self
+    }
+
+    pub fn nth114(mut self, v: Byte) -> Self {
+        self.0[114] = v;
+        self
+    }
+
+    pub fn nth115(mut self, v: Byte) -> Self {
+        self.0[115] = v;
+        self
+    }
+
+    pub fn nth116(mut self, v: Byte) -> Self {
+        self.0[116] = v;
+        self
+    }
+
+    pub fn nth117(mut self, v: Byte) -> Self {
+        self.0[117] = v;
+        self
+    }
+
+    pub fn nth118(mut self, v: Byte) -> Self {
+        self.0[118] = v;
+        self
+    }
+
+    pub fn nth119(mut self, v: Byte) -> Self {
+        self.0[119] = v;
+        self
+    }
+
+    pub fn nth120(mut self, v: Byte) -> Self {
+        self.0[120] = v;
+        self
+    }
+
+    pub fn nth121(mut self, v: Byte) -> Self {
+        self.0[121] = v;
+        self
+    }
+
+    pub fn nth122(mut self, v: Byte) -> Self {
+        self.0[122] = v;
+        self
+    }
+
+    pub fn nth123(mut self, v: Byte) -> Self {
+        self.0[123] = v;
+        self
+    }
+
+    pub fn nth124(mut self, v: Byte) -> Self {
+        self.0[124] = v;
+        self
+    }
+
+    pub fn nth125(mut self, v: Byte) -> Self {
+        self.0[125] = v;
+        self
+    }
+
+    pub fn nth126(mut self, v: Byte) -> Self {
+        self.0[126] = v;
+        self
+    }
+
+    pub fn nth127(mut self, v: Byte) -> Self {
+        self.0[127] = v;
+        self
+    }
+
+    pub fn nth128(mut self, v: Byte) -> Self {
+        self.0[128] = v;
+        self
+    }
+
+    pub fn nth129(mut self, v: Byte) -> Self {
+        self.0[129] = v;
+        self
+    }
+
+    pub fn nth130(mut self, v: Byte) -> Self {
+        self.0[130] = v;
+        self
+    }
+
+    pub fn nth131(mut self, v: Byte) -> Self {
+        self.0[131] = v;
+        self
+    }
+
+    pub fn nth132(mut self, v: Byte) -> Self {
+        self.0[132] = v;
+        self
+    }
+
+    pub fn nth133(mut self, v: Byte) -> Self {
+        self.0[133] = v;
+        self
+    }
+
+    pub fn nth134(mut self, v: Byte) -> Self {
+        self.0[134] = v;
+        self
+    }
+
+    pub fn nth135(mut self, v: Byte) -> Self {
+        self.0[135] = v;
+        self
+    }
+
+    pub fn nth136(mut self, v: Byte) -> Self {
+        self.0[136] = v;
+        self
+    }
+
+    pub fn nth137(mut self, v: Byte) -> Self {
+        self.0[137] = v;
+        self
+    }
+
+    pub fn nth138(mut self, v: Byte) -> Self {
+        self.0[138] = v;
+        self
+    }
+
+    pub fn nth139(mut self, v: Byte) -> Self {
+        self.0[139] = v;
+        self
+    }
+
+    pub fn nth140(mut self, v: Byte) -> Self {
+        self.0[140] = v;
+        self
+    }
+
+    pub fn nth141(mut self, v: Byte) -> Self {
+        self.0[141] = v;
+        self
+    }
+
+    pub fn nth142(mut self, v: Byte) -> Self {
+        self.0[142] = v;
+        self
+    }
+
+    pub fn nth143(mut self, v: Byte) -> Self {
+        self.0[143] = v;
+        self
+    }
+
+    pub fn nth144(mut self, v: Byte) -> Self {
+        self.0[144] = v;
+        self
+    }
+
+    pub fn nth145(mut self, v: Byte) -> Self {
+        self.0[145] = v;
+        self
+    }
+
+    pub fn nth146(mut self, v: Byte) -> Self {
+        self.0[146] = v;
+        self
+    }
+
+    pub fn nth147(mut self, v: Byte) -> Self {
+        self.0[147] = v;
+        self
+    }
+
+    pub fn nth148(mut self, v: Byte) -> Self {
+        self.0[148] = v;
+        self
+    }
+
+    pub fn nth149(mut self, v: Byte) -> Self {
+        self.0[149] = v;
+        self
+    }
+
+    pub fn nth150(mut self, v: Byte) -> Self {
+        self.0[150] = v;
+        self
+    }
+
+    pub fn nth151(mut self, v: Byte) -> Self {
+        self.0[151] = v;
+        self
+    }
+
+    pub fn nth152(mut self, v: Byte) -> Self {
+        self.0[152] = v;
+        self
+    }
+
+    pub fn nth153(mut self, v: Byte) -> Self {
+        self.0[153] = v;
+        self
+    }
+
+    pub fn nth154(mut self, v: Byte) -> Self {
+        self.0[154] = v;
+        self
+    }
+
+    pub fn nth155(mut self, v: Byte) -> Self {
+        self.0[155] = v;
+        self
+    }
+
+    pub fn nth156(mut self, v: Byte) -> Self {
+        self.0[156] = v;
+        self
+    }
+
+    pub fn nth157(mut self, v: Byte) -> Self {
+        self.0[157] = v;
+        self
+    }
+
+    pub fn nth158(mut self, v: Byte) -> Self {
+        self.0[158] = v;
+        self
+    }
+
+    pub fn nth159(mut self, v: Byte) -> Self {
+        self.0[159] = v;
+        self
+    }
+
+    pub fn nth160(mut self, v: Byte) -> Self {
+        self.0[160] = v;
+        self
+    }
+
+    pub fn nth161(mut self, v: Byte) -> Self {
+        self.0[161] = v;
+        self
+    }
+
+    pub fn nth162(mut self, v: Byte) -> Self {
+        self.0[162] = v;
+        self
+    }
+
+    pub fn nth163(mut self, v: Byte) -> Self {
+        self.0[163] = v;
+        self
+    }
+
+    pub fn nth164(mut self, v: Byte) -> Self {
+        self.0[164] = v;
+        self
+    }
+
+    pub fn nth165(mut self, v: Byte) -> Self {
+        self.0[165] = v;
+        self
+    }
+
+    pub fn nth166(mut self, v: Byte) -> Self {
+        self.0[166] = v;
+        self
+    }
+
+    pub fn nth167(mut self, v: Byte) -> Self {
+        self.0[167] = v;
+        self
+    }
+
+    pub fn nth168(mut self, v: Byte) -> Self {
+        self.0[168] = v;
+        self
+    }
+
+    pub fn nth169(mut self, v: Byte) -> Self {
+        self.0[169] = v;
+        self
+    }
+
+    pub fn nth170(mut self, v: Byte) -> Self {
+        self.0[170] = v;
+        self
+    }
+
+    pub fn nth171(mut self, v: Byte) -> Self {
+        self.0[171] = v;
+        self
+    }
+
+    pub fn nth172(mut self, v: Byte) -> Self {
+        self.0[172] = v;
+        self
+    }
+
+    pub fn nth173(mut self, v: Byte) -> Self {
+        self.0[173] = v;
+        self
+    }
+
+    pub fn nth174(mut self, v: Byte) -> Self {
+        self.0[174] = v;
+        self
+    }
+
+    pub fn nth175(mut self, v: Byte) -> Self {
+        self.0[175] = v;
+        self
+    }
+
+    pub fn nth176(mut self, v: Byte) -> Self {
+        self.0[176] = v;
+        self
+    }
+
+    pub fn nth177(mut self, v: Byte) -> Self {
+        self.0[177] = v;
+        self
+    }
+
+    pub fn nth178(mut self, v: Byte) -> Self {
+        self.0[178] = v;
+        self
+    }
+
+    pub fn nth179(mut self, v: Byte) -> Self {
+        self.0[179] = v;
+        self
+    }
+
+    pub fn nth180(mut self, v: Byte) -> Self {
+        self.0[180] = v;
+        self
+    }
+
+    pub fn nth181(mut self, v: Byte) -> Self {
+        self.0[181] = v;
+        self
+    }
+
+    pub fn nth182(mut self, v: Byte) -> Self {
+        self.0[182] = v;
+        self
+    }
+
+    pub fn nth183(mut self, v: Byte) -> Self {
+        self.0[183] = v;
+        self
+    }
+
+    pub fn nth184(mut self, v: Byte) -> Self {
+        self.0[184] = v;
+        self
+    }
+
+    pub fn nth185(mut self, v: Byte) -> Self {
+        self.0[185] = v;
+        self
+    }
+
+    pub fn nth186(mut self, v: Byte) -> Self {
+        self.0[186] = v;
+        self
+    }
+
+    pub fn nth187(mut self, v: Byte) -> Self {
+        self.0[187] = v;
+        self
+    }
+
+    pub fn nth188(mut self, v: Byte) -> Self {
+        self.0[188] = v;
+        self
+    }
+
+    pub fn nth189(mut self, v: Byte) -> Self {
+        self.0[189] = v;
+        self
+    }
+
+    pub fn nth190(mut self, v: Byte) -> Self {
+        self.0[190] = v;
+        self
+    }
+
+    pub fn nth191(mut self, v: Byte) -> Self {
+        self.0[191] = v;
+        self
+    }
+
+    pub fn nth192(mut self, v: Byte) -> Self {
+        self.0[192] = v;
+        self
+    }
+
+    pub fn nth193(mut self, v: Byte) -> Self {
+        self.0[193] = v;
+        self
+    }
+
+    pub fn nth194(mut self, v: Byte) -> Self {
+        self.0[194] = v;
+        self
+    }
+
+    pub fn nth195(mut self, v: Byte) -> Self {
+        self.0[195] = v;
+        self
+    }
+
+    pub fn nth196(mut self, v: Byte) -> Self {
+        self.0[196] = v;
+        self
+    }
+
+    pub fn nth197(mut self, v: Byte) -> Self {
+        self.0[197] = v;
+        self
+    }
+
+    pub fn nth198(mut self, v: Byte) -> Self {
+        self.0[198] = v;
+        self
+    }
+
+    pub fn nth199(mut self, v: Byte) -> Self {
+        self.0[199] = v;
+        self
+    }
+
+    pub fn nth200(mut self, v: Byte) -> Self {
+        self.0[200] = v;
+        self
+    }
+
+    pub fn nth201(mut self, v: Byte) -> Self {
+        self.0[201] = v;
+        self
+    }
+
+    pub fn nth202(mut self, v: Byte) -> Self {
+        self.0[202] = v;
+        self
+    }
+
+    pub fn nth203(mut self, v: Byte) -> Self {
+        self.0[203] = v;
+        self
+    }
+
+    pub fn nth204(mut self, v: Byte) -> Self {
+        self.0[204] = v;
+        self
+    }
+
+    pub fn nth205(mut self, v: Byte) -> Self {
+        self.0[205] = v;
+        self
+    }
+
+    pub fn nth206(mut self, v: Byte) -> Self {
+        self.0[206] = v;
+        self
+    }
+
+    pub fn nth207(mut self, v: Byte) -> Self {
+        self.0[207] = v;
+        self
+    }
+}
+impl molecule::prelude::Builder for PlainTxBuilder {
+    type Entity = PlainTx;
+
+    const NAME: &'static str = "PlainTxBuilder";
+
+    fn expected_length(&self) -> usize {
+        Self::TOTAL_SIZE
+    }
+
+    fn write<W: molecule::io::Write>(&self, writer: &mut W) -> molecule::io::Result<()> {
+        writer.write_all(self.0[0].as_slice())?;
+        writer.write_all(self.0[1].as_slice())?;
+        writer.write_all(self.0[2].as_slice())?;
+        writer.write_all(self.0[3].as_slice())?;
+        writer.write_all(self.0[4].as_slice())?;
+        writer.write_all(self.0[5].as_slice())?;
+        writer.write_all(self.0[6].as_slice())?;
+        writer.write_all(self.0[7].as_slice())?;
+        writer.write_all(self.0[8].as_slice())?;
+        writer.write_all(self.0[9].as_slice())?;
+        writer.write_all(self.0[10].as_slice())?;
+        writer.write_all(self.0[11].as_slice())?;
+        writer.write_all(self.0[12].as_slice())?;
+        writer.write_all(self.0[13].as_slice())?;
+        writer.write_all(self.0[14].as_slice())?;
+        writer.write_all(self.0[15].as_slice())?;
+        writer.write_all(self.0[16].as_slice())?;
+        writer.write_all(self.0[17].as_slice())?;
+        writer.write_all(self.0[18].as_slice())?;
+        writer.write_all(self.0[19].as_slice())?;
+        writer.write_all(self.0[20].as_slice())?;
+        writer.write_all(self.0[21].as_slice())?;
+        writer.write_all(self.0[22].as_slice())?;
+        writer.write_all(self.0[23].as_slice())?;
+        writer.write_all(self.0[24].as_slice())?;
+        writer.write_all(self.0[25].as_slice())?;
+        writer.write_all(self.0[26].as_slice())?;
+        writer.write_all(self.0[27].as_slice())?;
+        writer.write_all(self.0[28].as_slice())?;
+        writer.write_all(self.0[29].as_slice())?;
+        writer.write_all(self.0[30].as_slice())?;
+        writer.write_all(self.0[31].as_slice())?;
+        writer.write_all(self.0[32].as_slice())?;
+        writer.write_all(self.0[33].as_slice())?;
+        writer.write_all(self.0[34].as_slice())?;
+        writer.write_all(self.0[35].as_slice())?;
+        writer.write_all(self.0[36].as_slice())?;
+        writer.write_all(self.0[37].as_slice())?;
+        writer.write_all(self.0[38].as_slice())?;
+        writer.write_all(self.0[39].as_slice())?;
+        writer.write_all(self.0[40].as_slice())?;
+        writer.write_all(self.0[41].as_slice())?;
+        writer.write_all(self.0[42].as_slice())?;
+        writer.write_all(self.0[43].as_slice())?;
+        writer.write_all(self.0[44].as_slice())?;
+        writer.write_all(self.0[45].as_slice())?;
+        writer.write_all(self.0[46].as_slice())?;
+        writer.write_all(self.0[47].as_slice())?;
+        writer.write_all(self.0[48].as_slice())?;
+        writer.write_all(self.0[49].as_slice())?;
+        writer.write_all(self.0[50].as_slice())?;
+        writer.write_all(self.0[51].as_slice())?;
+        writer.write_all(self.0[52].as_slice())?;
+        writer.write_all(self.0[53].as_slice())?;
+        writer.write_all(self.0[54].as_slice())?;
+        writer.write_all(self.0[55].as_slice())?;
+        writer.write_all(self.0[56].as_slice())?;
+        writer.write_all(self.0[57].as_slice())?;
+        writer.write_all(self.0[58].as_slice())?;
+        writer.write_all(self.0[59].as_slice())?;
+        writer.write_all(self.0[60].as_slice())?;
+        writer.write_all(self.0[61].as_slice())?;
+        writer.write_all(self.0[62].as_slice())?;
+        writer.write_all(self.0[63].as_slice())?;
+        writer.write_all(self.0[64].as_slice())?;
+        writer.write_all(self.0[65].as_slice())?;
+        writer.write_all(self.0[66].as_slice())?;
+        writer.write_all(self.0[67].as_slice())?;
+        writer.write_all(self.0[68].as_slice())?;
+        writer.write_all(self.0[69].as_slice())?;
+        writer.write_all(self.0[70].as_slice())?;
+        writer.write_all(self.0[71].as_slice())?;
+        writer.write_all(self.0[72].as_slice())?;
+        writer.write_all(self.0[73].as_slice())?;
+        writer.write_all(self.0[74].as_slice())?;
+        writer.write_all(self.0[75].as_slice())?;
+        writer.write_all(self.0[76].as_slice())?;
+        writer.write_all(self.0[77].as_slice())?;
+        writer.write_all(self.0[78].as_slice())?;
+        writer.write_all(self.0[79].as_slice())?;
+        writer.write_all(self.0[80].as_slice())?;
+        writer.write_all(self.0[81].as_slice())?;
+        writer.write_all(self.0[82].as_slice())?;
+        writer.write_all(self.0[83].as_slice())?;
+        writer.write_all(self.0[84].as_slice())?;
+        writer.write_all(self.0[85].as_slice())?;
+        writer.write_all(self.0[86].as_slice())?;
+        writer.write_all(self.0[87].as_slice())?;
+        writer.write_all(self.0[88].as_slice())?;
+        writer.write_all(self.0[89].as_slice())?;
+        writer.write_all(self.0[90].as_slice())?;
+        writer.write_all(self.0[91].as_slice())?;
+        writer.write_all(self.0[92].as_slice())?;
+        writer.write_all(self.0[93].as_slice())?;
+        writer.write_all(self.0[94].as_slice())?;
+        writer.write_all(self.0[95].as_slice())?;
+        writer.write_all(self.0[96].as_slice())?;
+        writer.write_all(self.0[97].as_slice())?;
+        writer.write_all(self.0[98].as_slice())?;
+        writer.write_all(self.0[99].as_slice())?;
+        writer.write_all(self.0[100].as_slice())?;
+        writer.write_all(self.0[101].as_slice())?;
+        writer.write_all(self.0[102].as_slice())?;
+        writer.write_all(self.0[103].as_slice())?;
+        writer.write_all(self.0[104].as_slice())?;
+        writer.write_all(self.0[105].as_slice())?;
+        writer.write_all(self.0[106].as_slice())?;
+        writer.write_all(self.0[107].as_slice())?;
+        writer.write_all(self.0[108].as_slice())?;
+        writer.write_all(self.0[109].as_slice())?;
+        writer.write_all(self.0[110].as_slice())?;
+        writer.write_all(self.0[111].as_slice())?;
+        writer.write_all(self.0[112].as_slice())?;
+        writer.write_all(self.0[113].as_slice())?;
+        writer.write_all(self.0[114].as_slice())?;
+        writer.write_all(self.0[115].as_slice())?;
+        writer.write_all(self.0[116].as_slice())?;
+        writer.write_all(self.0[117].as_slice())?;
+        writer.write_all(self.0[118].as_slice())?;
+        writer.write_all(self.0[119].as_slice())?;
+        writer.write_all(self.0[120].as_slice())?;
+        writer.write_all(self.0[121].as_slice())?;
+        writer.write_all(self.0[122].as_slice())?;
+        writer.write_all(self.0[123].as_slice())?;
+        writer.write_all(self.0[124].as_slice())?;
+        writer.write_all(self.0[125].as_slice())?;
+        writer.write_all(self.0[126].as_slice())?;
+        writer.write_all(self.0[127].as_slice())?;
+        writer.write_all(self.0[128].as_slice())?;
+        writer.write_all(self.0[129].as_slice())?;
+        writer.write_all(self.0[130].as_slice())?;
+        writer.write_all(self.0[131].as_slice())?;
+        writer.write_all(self.0[132].as_slice())?;
+        writer.write_all(self.0[133].as_slice())?;
+        writer.write_all(self.0[134].as_slice())?;
+        writer.write_all(self.0[135].as_slice())?;
+        writer.write_all(self.0[136].as_slice())?;
+        writer.write_all(self.0[137].as_slice())?;
+        writer.write_all(self.0[138].as_slice())?;
+        writer.write_all(self.0[139].as_slice())?;
+        writer.write_all(self.0[140].as_slice())?;
+        writer.write_all(self.0[141].as_slice())?;
+        writer.write_all(self.0[142].as_slice())?;
+        writer.write_all(self.0[143].as_slice())?;
+        writer.write_all(self.0[144].as_slice())?;
+        writer.write_all(self.0[145].as_slice())?;
+        writer.write_all(self.0[146].as_slice())?;
+        writer.write_all(self.0[147].as_slice())?;
+        writer.write_all(self.0[148].as_slice())?;
+        writer.write_all(self.0[149].as_slice())?;
+        writer.write_all(self.0[150].as_slice())?;
+        writer.write_all(self.0[151].as_slice())?;
+        writer.write_all(self.0[152].as_slice())?;
+        writer.write_all(self.0[153].as_slice())?;
+        writer.write_all(self.0[154].as_slice())?;
+        writer.write_all(self.0[155].as_slice())?;
+        writer.write_all(self.0[156].as_slice())?;
+        writer.write_all(self.0[157].as_slice())?;
+        writer.write_all(self.0[158].as_slice())?;
+        writer.write_all(self.0[159].as_slice())?;
+        writer.write_all(self.0[160].as_slice())?;
+        writer.write_all(self.0[161].as_slice())?;
+        writer.write_all(self.0[162].as_slice())?;
+        writer.write_all(self.0[163].as_slice())?;
+        writer.write_all(self.0[164].as_slice())?;
+        writer.write_all(self.0[165].as_slice())?;
+        writer.write_all(self.0[166].as_slice())?;
+        writer.write_all(self.0[167].as_slice())?;
+        writer.write_all(self.0[168].as_slice())?;
+        writer.write_all(self.0[169].as_slice())?;
+        writer.write_all(self.0[170].as_slice())?;
+        writer.write_all(self.0[171].as_slice())?;
+        writer.write_all(self.0[172].as_slice())?;
+        writer.write_all(self.0[173].as_slice())?;
+        writer.write_all(self.0[174].as_slice())?;
+        writer.write_all(self.0[175].as_slice())?;
+        writer.write_all(self.0[176].as_slice())?;
+        writer.write_all(self.0[177].as_slice())?;
+        writer.write_all(self.0[178].as_slice())?;
+        writer.write_all(self.0[179].as_slice())?;
+        writer.write_all(self.0[180].as_slice())?;
+        writer.write_all(self.0[181].as_slice())?;
+        writer.write_all(self.0[182].as_slice())?;
+        writer.write_all(self.0[183].as_slice())?;
+        writer.write_all(self.0[184].as_slice())?;
+        writer.write_all(self.0[185].as_slice())?;
+        writer.write_all(self.0[186].as_slice())?;
+        writer.write_all(self.0[187].as_slice())?;
+        writer.write_all(self.0[188].as_slice())?;
+        writer.write_all(self.0[189].as_slice())?;
+        writer.write_all(self.0[190].as_slice())?;
+        writer.write_all(self.0[191].as_slice())?;
+        writer.write_all(self.0[192].as_slice())?;
+        writer.write_all(self.0[193].as_slice())?;
+        writer.write_all(self.0[194].as_slice())?;
+        writer.write_all(self.0[195].as_slice())?;
+        writer.write_all(self.0[196].as_slice())?;
+        writer.write_all(self.0[197].as_slice())?;
+        writer.write_all(self.0[198].as_slice())?;
+        writer.write_all(self.0[199].as_slice())?;
+        writer.write_all(self.0[200].as_slice())?;
+        writer.write_all(self.0[201].as_slice())?;
+        writer.write_all(self.0[202].as_slice())?;
+        writer.write_all(self.0[203].as_slice())?;
+        writer.write_all(self.0[204].as_slice())?;
+        writer.write_all(self.0[205].as_slice())?;
+        writer.write_all(self.0[206].as_slice())?;
+        writer.write_all(self.0[207].as_slice())?;
+        Ok(())
+    }
+
+    fn build(&self) -> Self::Entity {
+        let mut inner = Vec::with_capacity(self.expected_length());
+        self.write(&mut inner)
+            .unwrap_or_else(|_| panic!("{} build should be ok", Self::NAME));
+        PlainTx::new_unchecked(inner.into())
+    }
+}
+#[derive(Clone)]
 pub struct RawTx(molecule::bytes::Bytes);
 impl ::core::fmt::LowerHex for RawTx {
     fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
@@ -2662,9 +6175,10 @@ impl ::core::fmt::Debug for RawTx {
 }
 impl ::core::fmt::Display for RawTx {
     fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        write!(f, "{}(", Self::NAME)?;
-        self.to_enum().display_inner(f)?;
-        write!(f, ")")
+        write!(f, "{} {{ ", Self::NAME)?;
+        write!(f, "{}: {}", "state", self.state())?;
+        write!(f, ", {}: {}", "tx", self.tx())?;
+        write!(f, " }}")
     }
 }
 impl ::core::default::Default for RawTx {
@@ -2672,26 +6186,27 @@ impl ::core::default::Default for RawTx {
         let v: Vec<u8> = vec![
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0,
         ];
         RawTx::new_unchecked(v.into())
     }
 }
 impl RawTx {
-    pub const ITEMS_COUNT: usize = 3;
+    pub const FIELD_COUNT: usize = 2;
+    pub const FIELD_SIZES: [usize; 2] = [1, 208];
+    pub const TOTAL_SIZE: usize = 209;
 
-    pub fn item_id(&self) -> molecule::Number {
-        molecule::unpack_number(self.as_slice())
+    pub fn state(&self) -> Byte {
+        Byte::new_unchecked(self.0.slice(0..1))
     }
 
-    pub fn to_enum(&self) -> RawTxUnion {
-        let inner = self.0.slice(molecule::NUMBER_SIZE..);
-        match self.item_id() {
-            0 => Transfer::new_unchecked(inner).into(),
-            1 => PendingTransfer::new_unchecked(inner).into(),
-            2 => SettlePendingTransfer::new_unchecked(inner).into(),
-            _ => panic!("{}: invalid data", Self::NAME),
-        }
+    pub fn tx(&self) -> PlainTx {
+        PlainTx::new_unchecked(self.0.slice(1..209))
     }
 
     pub fn as_reader<'r>(&'r self) -> RawTxReader<'r> {
@@ -2728,7 +6243,7 @@ impl molecule::prelude::Entity for RawTx {
     }
 
     fn as_builder(self) -> Self::Builder {
-        Self::new_builder().set(self.to_enum())
+        Self::new_builder().state(self.state()).tx(self.tx())
     }
 }
 #[derive(Clone, Copy)]
@@ -2749,26 +6264,23 @@ impl<'r> ::core::fmt::Debug for RawTxReader<'r> {
 }
 impl<'r> ::core::fmt::Display for RawTxReader<'r> {
     fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        write!(f, "{}(", Self::NAME)?;
-        self.to_enum().display_inner(f)?;
-        write!(f, ")")
+        write!(f, "{} {{ ", Self::NAME)?;
+        write!(f, "{}: {}", "state", self.state())?;
+        write!(f, ", {}: {}", "tx", self.tx())?;
+        write!(f, " }}")
     }
 }
 impl<'r> RawTxReader<'r> {
-    pub const ITEMS_COUNT: usize = 3;
+    pub const FIELD_COUNT: usize = 2;
+    pub const FIELD_SIZES: [usize; 2] = [1, 208];
+    pub const TOTAL_SIZE: usize = 209;
 
-    pub fn item_id(&self) -> molecule::Number {
-        molecule::unpack_number(self.as_slice())
+    pub fn state(&self) -> ByteReader<'r> {
+        ByteReader::new_unchecked(&self.as_slice()[0..1])
     }
 
-    pub fn to_enum(&self) -> RawTxUnionReader<'r> {
-        let inner = &self.as_slice()[molecule::NUMBER_SIZE..];
-        match self.item_id() {
-            0 => TransferReader::new_unchecked(inner).into(),
-            1 => PendingTransferReader::new_unchecked(inner).into(),
-            2 => SettlePendingTransferReader::new_unchecked(inner).into(),
-            _ => panic!("{}: invalid data", Self::NAME),
-        }
+    pub fn tx(&self) -> PlainTxReader<'r> {
+        PlainTxReader::new_unchecked(&self.as_slice()[1..209])
     }
 }
 impl<'r> molecule::prelude::Reader<'r> for RawTxReader<'r> {
@@ -2788,33 +6300,32 @@ impl<'r> molecule::prelude::Reader<'r> for RawTxReader<'r> {
         self.0
     }
 
-    fn verify(slice: &[u8], compatible: bool) -> molecule::error::VerificationResult<()> {
+    fn verify(slice: &[u8], _compatible: bool) -> molecule::error::VerificationResult<()> {
         use molecule::verification_error as ve;
         let slice_len = slice.len();
-        if slice_len < molecule::NUMBER_SIZE {
-            return ve!(Self, HeaderIsBroken, molecule::NUMBER_SIZE, slice_len);
+        if slice_len != Self::TOTAL_SIZE {
+            return ve!(Self, TotalSizeNotMatch, Self::TOTAL_SIZE, slice_len);
         }
-        let item_id = molecule::unpack_number(slice);
-        let inner_slice = &slice[molecule::NUMBER_SIZE..];
-        match item_id {
-            0 => TransferReader::verify(inner_slice, compatible),
-            1 => PendingTransferReader::verify(inner_slice, compatible),
-            2 => SettlePendingTransferReader::verify(inner_slice, compatible),
-            _ => ve!(Self, UnknownItem, Self::ITEMS_COUNT, item_id),
-        }?;
         Ok(())
     }
 }
 #[derive(Debug, Default)]
-pub struct RawTxBuilder(pub(crate) RawTxUnion);
+pub struct RawTxBuilder {
+    pub(crate) state: Byte,
+    pub(crate) tx:    PlainTx,
+}
 impl RawTxBuilder {
-    pub const ITEMS_COUNT: usize = 3;
+    pub const FIELD_COUNT: usize = 2;
+    pub const FIELD_SIZES: [usize; 2] = [1, 208];
+    pub const TOTAL_SIZE: usize = 209;
 
-    pub fn set<I>(mut self, v: I) -> Self
-    where
-        I: ::core::convert::Into<RawTxUnion>,
-    {
-        self.0 = v.into();
+    pub fn state(mut self, v: Byte) -> Self {
+        self.state = v;
+        self
+    }
+
+    pub fn tx(mut self, v: PlainTx) -> Self {
+        self.tx = v;
         self
     }
 }
@@ -2824,12 +6335,13 @@ impl molecule::prelude::Builder for RawTxBuilder {
     const NAME: &'static str = "RawTxBuilder";
 
     fn expected_length(&self) -> usize {
-        molecule::NUMBER_SIZE + self.0.as_slice().len()
+        Self::TOTAL_SIZE
     }
 
     fn write<W: molecule::io::Write>(&self, writer: &mut W) -> molecule::io::Result<()> {
-        writer.write_all(&molecule::pack_number(self.0.item_id()))?;
-        writer.write_all(self.0.as_slice())
+        writer.write_all(self.state.as_slice())?;
+        writer.write_all(self.tx.as_slice())?;
+        Ok(())
     }
 
     fn build(&self) -> Self::Entity {
@@ -2837,183 +6349,6 @@ impl molecule::prelude::Builder for RawTxBuilder {
         self.write(&mut inner)
             .unwrap_or_else(|_| panic!("{} build should be ok", Self::NAME));
         RawTx::new_unchecked(inner.into())
-    }
-}
-#[derive(Debug, Clone)]
-pub enum RawTxUnion {
-    Transfer(Transfer),
-    PendingTransfer(PendingTransfer),
-    SettlePendingTransfer(SettlePendingTransfer),
-}
-#[derive(Debug, Clone, Copy)]
-pub enum RawTxUnionReader<'r> {
-    Transfer(TransferReader<'r>),
-    PendingTransfer(PendingTransferReader<'r>),
-    SettlePendingTransfer(SettlePendingTransferReader<'r>),
-}
-impl ::core::default::Default for RawTxUnion {
-    fn default() -> Self {
-        RawTxUnion::Transfer(::core::default::Default::default())
-    }
-}
-impl ::core::fmt::Display for RawTxUnion {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        match self {
-            RawTxUnion::Transfer(ref item) => {
-                write!(f, "{}::{}({})", Self::NAME, Transfer::NAME, item)
-            }
-            RawTxUnion::PendingTransfer(ref item) => {
-                write!(f, "{}::{}({})", Self::NAME, PendingTransfer::NAME, item)
-            }
-            RawTxUnion::SettlePendingTransfer(ref item) => {
-                write!(
-                    f,
-                    "{}::{}({})",
-                    Self::NAME,
-                    SettlePendingTransfer::NAME,
-                    item
-                )
-            }
-        }
-    }
-}
-impl<'r> ::core::fmt::Display for RawTxUnionReader<'r> {
-    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        match self {
-            RawTxUnionReader::Transfer(ref item) => {
-                write!(f, "{}::{}({})", Self::NAME, Transfer::NAME, item)
-            }
-            RawTxUnionReader::PendingTransfer(ref item) => {
-                write!(f, "{}::{}({})", Self::NAME, PendingTransfer::NAME, item)
-            }
-            RawTxUnionReader::SettlePendingTransfer(ref item) => {
-                write!(
-                    f,
-                    "{}::{}({})",
-                    Self::NAME,
-                    SettlePendingTransfer::NAME,
-                    item
-                )
-            }
-        }
-    }
-}
-impl RawTxUnion {
-    pub(crate) fn display_inner(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        match self {
-            RawTxUnion::Transfer(ref item) => write!(f, "{}", item),
-            RawTxUnion::PendingTransfer(ref item) => write!(f, "{}", item),
-            RawTxUnion::SettlePendingTransfer(ref item) => write!(f, "{}", item),
-        }
-    }
-}
-impl<'r> RawTxUnionReader<'r> {
-    pub(crate) fn display_inner(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-        match self {
-            RawTxUnionReader::Transfer(ref item) => write!(f, "{}", item),
-            RawTxUnionReader::PendingTransfer(ref item) => write!(f, "{}", item),
-            RawTxUnionReader::SettlePendingTransfer(ref item) => write!(f, "{}", item),
-        }
-    }
-}
-impl ::core::convert::From<Transfer> for RawTxUnion {
-    fn from(item: Transfer) -> Self {
-        RawTxUnion::Transfer(item)
-    }
-}
-impl ::core::convert::From<PendingTransfer> for RawTxUnion {
-    fn from(item: PendingTransfer) -> Self {
-        RawTxUnion::PendingTransfer(item)
-    }
-}
-impl ::core::convert::From<SettlePendingTransfer> for RawTxUnion {
-    fn from(item: SettlePendingTransfer) -> Self {
-        RawTxUnion::SettlePendingTransfer(item)
-    }
-}
-impl<'r> ::core::convert::From<TransferReader<'r>> for RawTxUnionReader<'r> {
-    fn from(item: TransferReader<'r>) -> Self {
-        RawTxUnionReader::Transfer(item)
-    }
-}
-impl<'r> ::core::convert::From<PendingTransferReader<'r>> for RawTxUnionReader<'r> {
-    fn from(item: PendingTransferReader<'r>) -> Self {
-        RawTxUnionReader::PendingTransfer(item)
-    }
-}
-impl<'r> ::core::convert::From<SettlePendingTransferReader<'r>> for RawTxUnionReader<'r> {
-    fn from(item: SettlePendingTransferReader<'r>) -> Self {
-        RawTxUnionReader::SettlePendingTransfer(item)
-    }
-}
-impl RawTxUnion {
-    pub const NAME: &'static str = "RawTxUnion";
-
-    pub fn as_bytes(&self) -> molecule::bytes::Bytes {
-        match self {
-            RawTxUnion::Transfer(item) => item.as_bytes(),
-            RawTxUnion::PendingTransfer(item) => item.as_bytes(),
-            RawTxUnion::SettlePendingTransfer(item) => item.as_bytes(),
-        }
-    }
-
-    pub fn as_slice(&self) -> &[u8] {
-        match self {
-            RawTxUnion::Transfer(item) => item.as_slice(),
-            RawTxUnion::PendingTransfer(item) => item.as_slice(),
-            RawTxUnion::SettlePendingTransfer(item) => item.as_slice(),
-        }
-    }
-
-    pub fn item_id(&self) -> molecule::Number {
-        match self {
-            RawTxUnion::Transfer(_) => 0,
-            RawTxUnion::PendingTransfer(_) => 1,
-            RawTxUnion::SettlePendingTransfer(_) => 2,
-        }
-    }
-
-    pub fn item_name(&self) -> &str {
-        match self {
-            RawTxUnion::Transfer(_) => "Transfer",
-            RawTxUnion::PendingTransfer(_) => "PendingTransfer",
-            RawTxUnion::SettlePendingTransfer(_) => "SettlePendingTransfer",
-        }
-    }
-
-    pub fn as_reader<'r>(&'r self) -> RawTxUnionReader<'r> {
-        match self {
-            RawTxUnion::Transfer(item) => item.as_reader().into(),
-            RawTxUnion::PendingTransfer(item) => item.as_reader().into(),
-            RawTxUnion::SettlePendingTransfer(item) => item.as_reader().into(),
-        }
-    }
-}
-impl<'r> RawTxUnionReader<'r> {
-    pub const NAME: &'r str = "RawTxUnionReader";
-
-    pub fn as_slice(&self) -> &'r [u8] {
-        match self {
-            RawTxUnionReader::Transfer(item) => item.as_slice(),
-            RawTxUnionReader::PendingTransfer(item) => item.as_slice(),
-            RawTxUnionReader::SettlePendingTransfer(item) => item.as_slice(),
-        }
-    }
-
-    pub fn item_id(&self) -> molecule::Number {
-        match self {
-            RawTxUnionReader::Transfer(_) => 0,
-            RawTxUnionReader::PendingTransfer(_) => 1,
-            RawTxUnionReader::SettlePendingTransfer(_) => 2,
-        }
-    }
-
-    pub fn item_name(&self) -> &str {
-        match self {
-            RawTxUnionReader::Transfer(_) => "Transfer",
-            RawTxUnionReader::PendingTransfer(_) => "PendingTransfer",
-            RawTxUnionReader::SettlePendingTransfer(_) => "SettlePendingTransfer",
-        }
     }
 }
 #[derive(Clone)]
@@ -3047,12 +6382,16 @@ impl ::core::fmt::Display for Tx {
 impl ::core::default::Default for Tx {
     fn default() -> Self {
         let v: Vec<u8> = vec![
-            161, 0, 0, 0, 12, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            30, 1, 0, 0, 12, 0, 0, 0, 221, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         ];
         Tx::new_unchecked(v.into())
     }

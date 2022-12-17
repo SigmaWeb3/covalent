@@ -1,8 +1,8 @@
 [workspace]
 
 members = [
-	"ckb-contracts/covalent-type-script",
-	"ckb-contracts/covalent-lock-script",
+	"contracts/covalent-type-script",
+	"contracts/covalent-lock-script",
 	"types",
 	"watchtower"
 ]

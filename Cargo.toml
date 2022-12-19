@@ -1,8 +1,7 @@
 [workspace]
 
 members = [
-	"contracts/covalent-type-script",
-	"contracts/covalent-lock-script",
-	"types",
-	"watchtower"
+	"layer2",
+	"layer3",
+	"share",
 ]

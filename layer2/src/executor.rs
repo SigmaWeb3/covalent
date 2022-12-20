@@ -67,26 +67,20 @@ impl<DB: cita_trie::DB> Executor<DB> {
         state_trie: &PatriciaTrie<DB, Hasher>,
     ) -> TxResult<Vec<u8>> {
         for req in stx.raw.requests.iter() {
-            let account = self.get_account(state_trie, &req.address);
-            let balance_trie = self.trie(&account.balance_root);
-            let record = self.get_balance(&balance_trie, &req.token_id);
-            let block_cycle_record = self
-                .block_exec_cache
-                .entry(req.address)
-                .or_insert_with(BTreeMap::new)
-                .entry(req.token_id)
-                .or_default();
-            let rec = self
-                .tx_exec_cache
-                .entry(req.address)
-                .or_insert_with(BTreeMap::new)
-                .entry(req.token_id)
-                .or_default();
-            if block_cycle_record.is_uninitialized() {
-                *block_cycle_record = record.clone();
-            }
-            if rec.is_uninitialized() {
-                *rec = record;
+            {
+                let record = self.get_balance(
+                    &self.trie(&self.get_account(state_trie, &req.address).balance_root),
+                    &req.token_id,
+                );
+                let rec = self
+                    .tx_exec_cache
+                    .entry(req.address)
+                    .or_insert_with(BTreeMap::new)
+                    .entry(req.token_id)
+                    .or_default();
+                if rec.is_uninitialized() {
+                    *rec = record;
+                }
             }
 
             let log_map = self.log_cache.entry(stx.tx_hash).or_insert_with(Vec::new);
@@ -94,6 +88,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
 
             match req.action {
                 TokenAction::Mint => {
+                    let rec = self
+                        .tx_exec_cache
+                        .get_mut(&req.address)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
                     rec.active += req.amount;
 
                     log_map.push(Log::new(
@@ -102,6 +102,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
                     ));
                 }
                 TokenAction::Lock => {
+                    let rec = self
+                        .tx_exec_cache
+                        .get_mut(&req.address)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
                     if rec.active < req.amount {
                         self.clear_tx_cache();
                         return Err(TransactionError::ActiveAmountLessThanLock.into());
@@ -116,6 +122,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
                     ));
                 }
                 TokenAction::Unlock => {
+                    let rec = self
+                        .tx_exec_cache
+                        .get_mut(&req.address)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
                     if rec.locked < req.amount {
                         self.clear_tx_cache();
                         return Err(TransactionError::LockedAmountLessThanUnlock.into());
@@ -130,6 +142,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
                     ));
                 }
                 TokenAction::Divert => {
+                    let rec = self
+                        .tx_exec_cache
+                        .get_mut(&req.address)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
                     if rec.active < req.amount {
                         self.clear_tx_cache();
                         return Err(TransactionError::ActiveAmountLessThanDivert.into());
@@ -141,6 +159,44 @@ impl<DB: cita_trie::DB> Executor<DB> {
                         addr_str,
                         gen_log(FlowDirection::ActiveReduce, req.amount),
                     ));
+                }
+                TokenAction::Transfer => {
+                    let to = req.to.unwrap();
+                    {
+                        let to_record = self.get_balance(
+                            &self.trie(&self.get_account(state_trie, &to).balance_root),
+                            &req.token_id,
+                        );
+                        let to_rec = self
+                            .tx_exec_cache
+                            .entry(to)
+                            .or_insert_with(BTreeMap::new)
+                            .entry(req.token_id)
+                            .or_default();
+                        if to_rec.is_uninitialized() {
+                            *to_rec = to_record;
+                        }
+                    }
+                    let rec = self
+                        .tx_exec_cache
+                        .get_mut(&req.address)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
+
+                    if rec.active < req.amount {
+                        self.clear_tx_cache();
+                        return Err(TransactionError::ActiveAmountLessThanDivert.into());
+                    }
+                    rec.active -= req.amount;
+
+                    let to_rec = self
+                        .tx_exec_cache
+                        .get_mut(&to)
+                        .unwrap()
+                        .get_mut(&req.token_id)
+                        .unwrap();
+                    to_rec.active += req.amount;
                 }
             }
         }

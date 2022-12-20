@@ -170,7 +170,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
         }
     }
 
-    fn trie(&self, root: &Hash) -> PatriciaTrie<DB, Hasher> {
+    pub fn trie(&self, root: &Hash) -> PatriciaTrie<DB, Hasher> {
         let hasher = Arc::new(Hasher::default());
         if root.is_zero() {
             return PatriciaTrie::new(Arc::clone(&self.trie_db), hasher);
@@ -180,8 +180,8 @@ impl<DB: cita_trie::DB> Executor<DB> {
             .expect("trie from root")
     }
 
-    fn get_account(&self, trie: &PatriciaTrie<DB, Hasher>, addr: &H160) -> Account {
-        if let Some(raw) = trie.get(addr.as_bytes()).expect("get account") {
+    pub fn get_account(&self, state_trie: &PatriciaTrie<DB, Hasher>, addr: &H160) -> Account {
+        if let Some(raw) = state_trie.get(addr.as_bytes()).expect("get account") {
             if let Ok(account) = Account::decode(&Rlp::new(&raw)) {
                 return account;
             }
@@ -193,8 +193,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
         }
     }
 
-    fn get_balance(&self, trie: &PatriciaTrie<DB, Hasher>, token_id: &Hash) -> TokenBalance {
-        if let Some(raw) = trie.get(token_id.as_bytes()).expect("get account") {
+    pub fn get_balance(
+        &self,
+        balance_trie: &PatriciaTrie<DB, Hasher>,
+        token_id: &Hash,
+    ) -> TokenBalance {
+        if let Some(raw) = balance_trie.get(token_id.as_bytes()).expect("get account") {
             if let Ok(balance) = TokenBalance::decode(&Rlp::new(&raw)) {
                 return balance;
             }

@@ -12,7 +12,7 @@ use crate::types::{Hash, Hasher, SignedTransaction, U64};
 const TX_CYCLE_LIMIT: U64 = U64([100_000]);
 
 #[async_trait]
-pub trait MemPool {
+pub trait MemPool: Sync + Send {
     async fn insert(&self, stx: SignedTransaction) -> Result<()>;
 
     async fn package(&self, cycle_limit: U64) -> Result<Vec<SignedTransaction>>;

@@ -13,12 +13,12 @@ const BLOCK_INTERVAL: u64 = 3; // second
 const CYCLE_LIMIT: U64 = U64([30_000_000]);
 
 pub struct Consensus<DB, M, C> {
-    trie_db: Arc<DB>,
-    mempool: Arc<M>,
-    chain: Arc<C>,
-    state: State,
+    trie_db:  Arc<DB>,
+    mempool:  Arc<M>,
+    chain:    Arc<C>,
+    state:    State,
     chain_id: U64,
-    address: H160,
+    address:  H160,
 }
 
 impl<DB, M, C> Consensus<DB, M, C>
@@ -36,8 +36,8 @@ where
     ) -> Self {
         let state = State {
             next_number: U64::one(),
-            prev_hash: Hash::default(),
-            state_root: Hash::default(),
+            prev_hash:   Hash::default(),
+            state_root:  Hash::default(),
         };
 
         Consensus {
@@ -71,16 +71,16 @@ where
 
     fn build_block(&self, txs: Vec<SignedTransaction>) -> Block {
         let header = Header {
-            chain_id: self.chain_id,
-            number: self.state.next_number,
-            prev_hash: self.state.prev_hash,
-            timestamp: time_now(),
+            chain_id:         self.chain_id,
+            number:           self.state.next_number,
+            prev_hash:        self.state.prev_hash,
+            timestamp:        time_now(),
             transaction_root: Merkle::from_hashes(txs.iter().map(|tx| tx.tx_hash).collect())
                 .get_root_hash()
                 .unwrap_or_default(),
-            state_root: self.state.state_root,
-            cycles_limit: CYCLE_LIMIT,
-            proposer: self.address,
+            state_root:       self.state.state_root,
+            cycles_limit:     CYCLE_LIMIT,
+            proposer:         self.address,
         };
 
         Block { header, txs }
@@ -89,8 +89,8 @@ where
 
 pub struct State {
     pub next_number: U64,
-    pub prev_hash: Hash,
-    pub state_root: Hash,
+    pub prev_hash:   Hash,
+    pub state_root:  Hash,
 }
 
 fn time_now() -> U128 {

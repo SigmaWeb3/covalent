@@ -16,6 +16,7 @@ pub enum TokenAction {
     Lock,
     Unlock,
     Divert,
+    Transfer,
 }
 
 impl Encodable for TokenAction {
@@ -58,7 +59,6 @@ pub struct RawTransaction {
     pub cycles_limit: U64,
     pub nonce:        Hash,
     pub requests:     Vec<TransactionRequest>,
-    pub timeout:      U64,
     pub sender:       H160,
 }
 
@@ -68,6 +68,7 @@ pub struct TransactionRequest {
     pub token_id: Hash,
     pub amount:   U256,
     pub action:   TokenAction,
+    pub to:       Option<H160>,
 }
 
 #[derive(Serialize, Deserialize, RlpEncodable, RlpDecodable, Clone, Debug, PartialEq, Eq)]

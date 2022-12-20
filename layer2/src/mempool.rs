@@ -7,7 +7,7 @@ use ophelia::{HashValue, SignatureVerify};
 use ophelia_secp256k1::{Secp256k1PublicKey, Secp256k1Signature};
 use rlp::Encodable;
 
-use crate::types::{Hash, Hasher, SignedTransaction, U64};
+use crate::types::{Hash, Hasher, SignedTransaction, TokenAction, U64};
 
 const TX_CYCLE_LIMIT: U64 = U64([100_000]);
 
@@ -84,6 +84,15 @@ impl MemPoolImpl {
 
         if Hasher::digest_(stx.raw.rlp_bytes()) != stx.tx_hash {
             return Err(anyhow!("Tx hash diff"));
+        }
+
+        if stx
+            .raw
+            .requests
+            .iter()
+            .any(|req| req.action == TokenAction::Transfer && req.to.is_none())
+        {
+            return Err(anyhow!("Invalid transfer request"));
         }
 
         Secp256k1Signature::try_from(stx.signature.to_vec().as_ref())

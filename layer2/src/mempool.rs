@@ -30,13 +30,13 @@ pub struct MemPoolImpl {
 impl MemPool for MemPoolImpl {
     async fn insert(&self, stx: SignedTransaction) -> Result<()> {
         self.verify_tx(&stx)?;
-        let _ = self.flush_lock.read();
+        let _insert = self.flush_lock.read();
         self.tx_map.insert(stx.tx_hash, stx);
         Ok(())
     }
 
     async fn package(&self, total_limit: U64) -> Result<Vec<SignedTransaction>> {
-        let _ = self.flush_lock.write();
+        let _package = self.flush_lock.write();
         let mut sum_cycle = U64::zero();
 
         Ok(self
@@ -56,7 +56,7 @@ impl MemPool for MemPoolImpl {
     }
 
     async fn remove(&self, hashes: Vec<Hash>) -> Result<()> {
-        let _ = self.flush_lock.write();
+        let _flush = self.flush_lock.write();
         hashes.iter().for_each(|hash| {
             let _ = self.tx_map.remove(hash);
         });

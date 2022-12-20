@@ -104,7 +104,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Lock => {
                     if rec.active < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::ActiveAmountLessThanLockReq.into());
+                        return Err(TransactionError::ActiveAmountLessThanLock.into());
                     }
 
                     rec.active -= req.amount;
@@ -118,7 +118,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Unlock => {
                     if rec.locked < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::LockedAmountLessThanUnlockReq.into());
+                        return Err(TransactionError::LockedAmountLessThanUnlock.into());
                     }
 
                     rec.locked -= req.amount;
@@ -132,7 +132,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Divert => {
                     if rec.active < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::ActiveAmountLessThanDivertReq.into());
+                        return Err(TransactionError::ActiveAmountLessThanDivert.into());
                     }
 
                     rec.active -= req.amount;
@@ -154,7 +154,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
 
     fn commit_cache(&self, state_trie: &mut PatriciaTrie<DB, Hasher>) {
         for (addr, cache) in self.block_exec_cache.iter() {
-            let mut account = self.get_account(state_trie, &addr);
+            let mut account = self.get_account(state_trie, addr);
             let mut balance_trie = self.trie(&account.balance_root);
 
             for (token_id, balance) in cache.iter() {
@@ -235,9 +235,9 @@ enum FlowDirection {
 #[derive(Display, IntoPrimitive, Clone, Copy, Debug)]
 #[repr(u32)]
 enum TransactionError {
-    ActiveAmountLessThanLockReq,
-    LockedAmountLessThanUnlockReq,
-    ActiveAmountLessThanDivertReq,
+    ActiveAmountLessThanLock,
+    LockedAmountLessThanUnlock,
+    ActiveAmountLessThanDivert,
 }
 
 impl From<TransactionError> for ExecuteError {

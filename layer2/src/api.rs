@@ -1,8 +1,10 @@
+use std::net::SocketAddr;
 use std::sync::Arc;
 
 use async_trait::async_trait;
 use jsonrpsee::core::{Error, RpcResult};
 use jsonrpsee::proc_macros::rpc;
+use jsonrpsee::server::ServerBuilder;
 
 use crate::chain::Chain;
 use crate::executor::Executor;
@@ -75,4 +77,24 @@ where
             &token_id,
         ))
     }
+}
+
+impl<DB, C, M> RpcImpl<DB, C, M>
+where
+    DB: cita_trie::DB + Sync + 'static,
+    C: Chain + 'static,
+    M: MemPool + 'static,
+{
+    pub fn new(trie_db: Arc<DB>, chain: Arc<C>, mempool: Arc<M>) -> Self {
+        RpcImpl {
+            trie_db,
+            chain,
+            mempool,
+        }
+    }
+}
+
+pub async fn run_jsonrpc_server<RPC: RpcServer>(rpc_impl: RPC, uri: SocketAddr) {
+    let server = ServerBuilder::default().build(uri).await.unwrap();
+    let _handle = server.start(rpc_impl.into_rpc()).unwrap();
 }

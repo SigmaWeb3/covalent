@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::sync::Arc;
 
 use anyhow::Result;
@@ -62,7 +63,7 @@ impl Chain for CovalentChain {
             .open_tree(NUMBER_HASH_TREE)?
             .get(u64_le_bytes(number))?
         {
-            return self.get_block_by_hash(&Hash::from_slice(&(*raw))).await;
+            return self.get_block_by_hash(&Hash::from_slice(&raw)).await;
         }
 
         Ok(None)
@@ -82,6 +83,14 @@ impl Chain for CovalentChain {
         match self.db.open_tree(TX_TREE)?.get(hash)? {
             None => Ok(None),
             Some(raw) => Ok(Some(SignedTransaction::decode(&Rlp::new(raw.as_ref()))?)),
+        }
+    }
+}
+
+impl CovalentChain {
+    pub fn new(path: PathBuf) -> Self {
+        CovalentChain {
+            db: Arc::new(sled::open(path).unwrap()),
         }
     }
 }

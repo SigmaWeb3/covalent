@@ -67,21 +67,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
         state_trie: &PatriciaTrie<DB, Hasher>,
     ) -> TxResult<Vec<u8>> {
         for req in stx.raw.requests.iter() {
-            {
-                let record = self.get_balance(
-                    &self.trie(&self.get_account(state_trie, &req.address).balance_root),
-                    &req.token_id,
-                );
-                let rec = self
-                    .tx_exec_cache
-                    .entry(req.address)
-                    .or_insert_with(BTreeMap::new)
-                    .entry(req.token_id)
-                    .or_default();
-                if rec.is_uninitialized() {
-                    *rec = record;
-                }
-            }
+            self.load_to_cache(state_trie, &req.address, &req.token_id);
 
             let log_map = self.log_cache.entry(stx.tx_hash).or_insert_with(Vec::new);
             let addr_str = req.address.to_string();
@@ -162,21 +148,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 }
                 TokenAction::Transfer => {
                     let to = req.to.unwrap();
-                    {
-                        let to_record = self.get_balance(
-                            &self.trie(&self.get_account(state_trie, &to).balance_root),
-                            &req.token_id,
-                        );
-                        let to_rec = self
-                            .tx_exec_cache
-                            .entry(to)
-                            .or_insert_with(BTreeMap::new)
-                            .entry(req.token_id)
-                            .or_default();
-                        if to_rec.is_uninitialized() {
-                            *to_rec = to_record;
-                        }
-                    }
+                    self.load_to_cache(state_trie, &to, &req.token_id);
                     let rec = self
                         .tx_exec_cache
                         .get_mut(&req.address)
@@ -206,6 +178,27 @@ impl<DB: cita_trie::DB> Executor<DB> {
         }
 
         Ok(rlp::encode(&gen_resp(stx.tx_hash)).to_vec())
+    }
+
+    fn load_to_cache(
+        &mut self,
+        state_trie: &PatriciaTrie<DB, Hasher>,
+        address: &H160,
+        token_id: &Hash,
+    ) {
+        let record = self.get_balance(
+            &self.trie(&self.get_account(state_trie, address).balance_root),
+            token_id,
+        );
+        let rec = self
+            .tx_exec_cache
+            .entry(*address)
+            .or_insert_with(BTreeMap::new)
+            .entry(*token_id)
+            .or_default();
+        if rec.is_uninitialized() {
+            *rec = record;
+        }
     }
 
     fn commit_cache(&self, state_trie: &mut PatriciaTrie<DB, Hasher>) {

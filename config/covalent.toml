@@ -1,0 +1,4 @@
+db_path = "./data"
+rpc_uri = "0.0.0.0:8000"
+address = "0x8ab0cf264df99d83525e9e11c7e4db01558ae1b1"
+chain_id = 1

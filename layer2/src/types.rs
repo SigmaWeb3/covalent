@@ -27,7 +27,7 @@ impl Encodable for TokenAction {
 impl Decodable for TokenAction {
     fn decode(rlp: &Rlp) -> Result<Self, DecoderError> {
         let act: u8 = rlp.val_at(0)?;
-        Ok(TokenAction::try_from(act).map_err(|_| DecoderError::RlpExpectedToBeData)?)
+        TokenAction::try_from(act).map_err(|_| DecoderError::RlpExpectedToBeData)
     }
 }
 

@@ -104,7 +104,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Lock => {
                     if rec.active < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::ActiveAmountLessThanLockReq.into());
+                        return Err(TransactionError::ActiveAmountLessThanLock.into());
                     }
 
                     rec.active -= req.amount;
@@ -118,7 +118,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Unlock => {
                     if rec.locked < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::LockedAmountLessThanUnlockReq.into());
+                        return Err(TransactionError::LockedAmountLessThanUnlock.into());
                     }
 
                     rec.locked -= req.amount;
@@ -132,7 +132,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 TokenAction::Divert => {
                     if rec.active < req.amount {
                         self.clear_tx_cache();
-                        return Err(TransactionError::ActiveAmountLessThanDivertReq.into());
+                        return Err(TransactionError::ActiveAmountLessThanDivert.into());
                     }
 
                     rec.active -= req.amount;
@@ -154,7 +154,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
 
     fn commit_cache(&self, state_trie: &mut PatriciaTrie<DB, Hasher>) {
         for (addr, cache) in self.block_exec_cache.iter() {
-            let mut account = self.get_account(state_trie, &addr);
+            let mut account = self.get_account(state_trie, addr);
             let mut balance_trie = self.trie(&account.balance_root);
 
             for (token_id, balance) in cache.iter() {
@@ -170,7 +170,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
         }
     }
 
-    fn trie(&self, root: &Hash) -> PatriciaTrie<DB, Hasher> {
+    pub fn trie(&self, root: &Hash) -> PatriciaTrie<DB, Hasher> {
         let hasher = Arc::new(Hasher::default());
         if root.is_zero() {
             return PatriciaTrie::new(Arc::clone(&self.trie_db), hasher);
@@ -180,8 +180,8 @@ impl<DB: cita_trie::DB> Executor<DB> {
             .expect("trie from root")
     }
 
-    fn get_account(&self, trie: &PatriciaTrie<DB, Hasher>, addr: &H160) -> Account {
-        if let Some(raw) = trie.get(addr.as_bytes()).expect("get account") {
+    pub fn get_account(&self, state_trie: &PatriciaTrie<DB, Hasher>, addr: &H160) -> Account {
+        if let Some(raw) = state_trie.get(addr.as_bytes()).expect("get account") {
             if let Ok(account) = Account::decode(&Rlp::new(&raw)) {
                 return account;
             }
@@ -193,8 +193,12 @@ impl<DB: cita_trie::DB> Executor<DB> {
         }
     }
 
-    fn get_balance(&self, trie: &PatriciaTrie<DB, Hasher>, token_id: &Hash) -> TokenBalance {
-        if let Some(raw) = trie.get(token_id.as_bytes()).expect("get account") {
+    pub fn get_balance(
+        &self,
+        balance_trie: &PatriciaTrie<DB, Hasher>,
+        token_id: &Hash,
+    ) -> TokenBalance {
+        if let Some(raw) = balance_trie.get(token_id.as_bytes()).expect("get account") {
             if let Ok(balance) = TokenBalance::decode(&Rlp::new(&raw)) {
                 return balance;
             }
@@ -231,9 +235,9 @@ enum FlowDirection {
 #[derive(Display, IntoPrimitive, Clone, Copy, Debug)]
 #[repr(u32)]
 enum TransactionError {
-    ActiveAmountLessThanLockReq,
-    LockedAmountLessThanUnlockReq,
-    ActiveAmountLessThanDivertReq,
+    ActiveAmountLessThanLock,
+    LockedAmountLessThanUnlock,
+    ActiveAmountLessThanDivert,
 }
 
 impl From<TransactionError> for ExecuteError {

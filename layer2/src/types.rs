@@ -107,9 +107,16 @@ pub struct Block {
     pub txs:    Vec<SignedTransaction>,
 }
 
+impl Block {
+    pub fn header_hash(&self) -> Hash {
+        Hasher::digest_(self.header.rlp_bytes())
+    }
+}
+
 #[derive(Serialize, Deserialize, RlpEncodable, RlpDecodable, Clone, Debug, PartialEq, Eq)]
 pub struct BlockExecuteResponse {
-    pub inner: Vec<ExecuteResponse>,
+    pub state_root: Hash,
+    pub inner:      Vec<ExecuteResponse>,
 }
 
 #[derive(Serialize, Deserialize, RlpEncodable, RlpDecodable, Clone, Debug, PartialEq, Eq)]

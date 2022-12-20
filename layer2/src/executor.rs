@@ -4,7 +4,7 @@ use std::sync::Arc;
 use cita_trie::{PatriciaTrie, Trie};
 use derive_more::Display;
 use num_enum::IntoPrimitive;
-use rlp::{Decodable, Rlp};
+use rlp::{Decodable, Encodable, Rlp};
 
 use crate::types::{
     Account, BlockExecuteResponse, ExecuteError, ExecuteResponse, Hash, Hasher, Log,
@@ -14,7 +14,7 @@ use crate::types::{
 type TxResult<T> = std::result::Result<T, ExecuteError>;
 
 pub trait Execute {
-    fn exec(&mut self, state_root: Hash, txs: Vec<SignedTransaction>) -> BlockExecuteResponse;
+    fn exec(&mut self, state_root: Hash, txs: &[SignedTransaction]) -> BlockExecuteResponse;
 }
 
 pub struct Executor<DB> {
@@ -25,9 +25,9 @@ pub struct Executor<DB> {
 }
 
 impl<DB: cita_trie::DB> Execute for Executor<DB> {
-    fn exec(&mut self, state_root: Hash, txs: Vec<SignedTransaction>) -> BlockExecuteResponse {
-        let mut inner = Vec::with_capacity(txs.len());
-        let state_trie = self.trie(&state_root);
+    fn exec(&mut self, state_root: Hash, txs: &[SignedTransaction]) -> BlockExecuteResponse {
+        let mut resp_list = Vec::with_capacity(txs.len());
+        let mut state_trie = self.trie(&state_root);
 
         txs.iter().for_each(|stx| {
             let (res, err) = match self.inner_exec(stx, &state_trie) {
@@ -35,14 +35,19 @@ impl<DB: cita_trie::DB> Execute for Executor<DB> {
                 Err(e) => (Vec::new(), Some(e)),
             };
 
-            inner.push(ExecuteResponse {
+            resp_list.push(ExecuteResponse {
                 tx_hash: stx.tx_hash,
                 ret:     res,
                 error:   err,
             });
         });
 
-        BlockExecuteResponse { inner }
+        self.commit_cache(&mut state_trie);
+
+        BlockExecuteResponse {
+            state_root: Hash::from_slice(&state_trie.root().unwrap()),
+            inner:      resp_list,
+        }
     }
 }
 
@@ -65,15 +70,25 @@ impl<DB: cita_trie::DB> Executor<DB> {
             let account = self.get_account(state_trie, &req.address);
             let balance_trie = self.trie(&account.balance_root);
             let record = self.get_balance(&balance_trie, &req.token_id);
+            let block_cycle_record = self
+                .block_exec_cache
+                .entry(req.address)
+                .or_insert_with(BTreeMap::new)
+                .entry(req.token_id)
+                .or_default();
             let rec = self
                 .tx_exec_cache
                 .entry(req.address)
                 .or_insert_with(BTreeMap::new)
                 .entry(req.token_id)
                 .or_default();
+            if block_cycle_record.is_uninitialized() {
+                *block_cycle_record = record.clone();
+            }
             if rec.is_uninitialized() {
                 *rec = record;
             }
+
             let log_map = self.log_cache.entry(stx.tx_hash).or_insert_with(Vec::new);
             let addr_str = req.address.to_string();
 
@@ -88,6 +103,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 }
                 TokenAction::Lock => {
                     if rec.active < req.amount {
+                        self.clear_tx_cache();
                         return Err(TransactionError::ActiveAmountLessThanLockReq.into());
                     }
 
@@ -101,6 +117,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 }
                 TokenAction::Unlock => {
                     if rec.locked < req.amount {
+                        self.clear_tx_cache();
                         return Err(TransactionError::LockedAmountLessThanUnlockReq.into());
                     }
 
@@ -114,6 +131,7 @@ impl<DB: cita_trie::DB> Executor<DB> {
                 }
                 TokenAction::Divert => {
                     if rec.active < req.amount {
+                        self.clear_tx_cache();
                         return Err(TransactionError::ActiveAmountLessThanDivertReq.into());
                     }
 
@@ -127,7 +145,29 @@ impl<DB: cita_trie::DB> Executor<DB> {
             }
         }
 
+        for (addr, cache) in self.tx_exec_cache.iter() {
+            self.block_exec_cache.insert(*addr, cache.clone());
+        }
+
         Ok(rlp::encode(&gen_resp(stx.tx_hash)).to_vec())
+    }
+
+    fn commit_cache(&self, state_trie: &mut PatriciaTrie<DB, Hasher>) {
+        for (addr, cache) in self.block_exec_cache.iter() {
+            let mut account = self.get_account(state_trie, &addr);
+            let mut balance_trie = self.trie(&account.balance_root);
+
+            for (token_id, balance) in cache.iter() {
+                balance_trie
+                    .insert(token_id.0.to_vec(), balance.rlp_bytes().to_vec())
+                    .unwrap();
+            }
+
+            account.balance_root = Hash::from_slice(&balance_trie.root().unwrap());
+            state_trie
+                .insert(addr.0.to_vec(), account.rlp_bytes().to_vec())
+                .unwrap();
+        }
     }
 
     fn trie(&self, root: &Hash) -> PatriciaTrie<DB, Hasher> {

@@ -1,7 +1,9 @@
 [workspace]
 
 members = [
+    "ckb",
 	"layer2",
 	"layer3",
+    "data_avail",
 	"share",
 ]

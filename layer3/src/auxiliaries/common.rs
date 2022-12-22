@@ -11,6 +11,17 @@ pub fn blake2b(msg: &[u8]) -> H256 {
     buf.into()
 }
 
+pub trait Hash {
+    fn hash(&self) -> H256;
+}
+
+impl<T: Serialize> Hash for T {
+    fn hash(&self) -> H256 {
+        let encoded = bincode::serialize(self).unwrap();
+        blake2b(&encoded)
+    }
+}
+
 pub trait H256Ext<H> {
     fn to_h256(&self) -> H;
 }
@@ -42,12 +53,8 @@ impl H256Ext<sparse_merkle_tree::H256> for H256 {
 }
 
 pub fn cbmt_merkle_root<V: Serialize>(leaves: &Vec<V>) -> H256 {
-    let leaf_hashes = leaves.iter().map(|v| {
-        let encoded = bincode::serialize(v).unwrap();
-        blake2b(&encoded)
-    });
-
-    let tree: MerkleTree<_, MergeH256> = CBMT::build_merkle_tree(&leaf_hashes.collect::<Vec<_>>());
+    let leaf_hashes = leaves.iter().map(Hash::hash).collect::<Vec<_>>();
+    let tree: MerkleTree<_, MergeH256> = CBMT::build_merkle_tree(&leaf_hashes);
     tree.root()
 }
 

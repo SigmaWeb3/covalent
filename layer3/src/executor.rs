@@ -2,18 +2,14 @@ use std::collections::BTreeMap;
 
 use anyhow::Result;
 use primitive_types::{H160, H256, U256};
-use secp256k1::{
-    ecdsa::{RecoverableSignature, RecoveryId},
-    Message, Secp256k1,
-};
 use serde::{Deserialize, Serialize};
-use sha3::{Digest, Keccak256};
 
 use crate::{
     auxiliaries::{
         common::{cbmt_merkle_root, H256Ext},
         smt::{MemStore, SMT},
         store::Store,
+        wallet::Wallet,
     },
     types::{
         Channel, ChannelState, CloseChannel, CreateChannel, ExecutionExitCode, RawTransaction,
@@ -96,7 +92,7 @@ fn create_channel(
     let channel = Channel {
         id: args.id,
         token: args.token.clone(),
-        challenge_blocks: args.challenge_blocks,
+        // challenge_blocks: args.challenge_blocks,
         participant2: args.participant2,
 
         state: ChannelState::Open,
@@ -127,8 +123,8 @@ fn update_channel(
 
     // Verify participant2 signatures
     let sig_msg = args.sig_msg();
-    if let Err(_err) = verify_signature2(sig_msg, &channel.participant2, &args.signature2) {
-        // eprintln!("verify signature2 err {}", err);
+    if let Err(err) = verify_signature2(sig_msg, &channel.participant2, &args.signature2) {
+        eprintln!("verify signature2 err {}", err);
         let receipt = TransactionReceipt::err_res(ExecutionExitCode::ErrorUpdateChannelSignature);
         return Ok(receipt);
     }
@@ -161,13 +157,14 @@ fn close_channel(
 
     // Verify participant2 signatures
     let sig_msg = args.sig_msg();
-    if let Err(_err) = verify_signature2(sig_msg, &channel.participant2, &args.signature2) {
-        // eprintln!("verify signature2 err {}", err);
+    if let Err(err) = verify_signature2(sig_msg, &channel.participant2, &args.signature2) {
+        eprintln!("verify signature2 err {}", err);
         let receipt = TransactionReceipt::err_res(ExecutionExitCode::ErrorUpdateChannelSignature);
         return Ok(receipt);
     }
 
     let closed = Channel {
+        state: ChannelState::Closed,
         version: args.version,
         ..channel
     };
@@ -188,39 +185,19 @@ enum SignatureError {
     ParticipantAddressNotFound,
 }
 
-fn extract_rec_id(rec_id: u8) -> Result<RecoveryId, SignatureError> {
-    let param = match rec_id {
-        r if r == 27 => 0,
-        r if r == 28 => 1,
-        r => r,
-    };
-    Ok(RecoveryId::from_i32(param.into())?)
-}
-
 fn verify_signature2(
     msg: H256,
     participant2: &[H160; 2],
     sig2: &[Signature; 2],
 ) -> Result<(), SignatureError> {
-    let msg = Message::from_slice(&msg.0)?;
-    let secp = Secp256k1::new();
-
     for sig in sig2 {
         let sig: [u8; 65] = sig
             .as_slice()
             .try_into()
             .map_err(|_| SignatureError::InvalidSignatureLength)?;
 
-        let rec_id = extract_rec_id(sig[64])?;
-        let rec_sig = RecoverableSignature::from_compact(&sig[..64], rec_id)?;
-
-        let pk = secp.recover_ecdsa(&msg, &rec_sig)?;
-
-        let mut hasher = Keccak256::new();
-        hasher.update(&pk.serialize_uncompressed()[1..]);
-        let rec_addr = &hasher.finalize()[12..];
-
-        if !participant2.into_iter().any(|addr| addr.0 == rec_addr) {
+        let addr = Wallet::recover_address(msg, sig)?;
+        if !participant2.into_iter().any(|p_addr| p_addr == &addr) {
             return Err(SignatureError::ParticipantAddressNotFound);
         }
     }

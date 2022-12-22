@@ -14,12 +14,12 @@ pub trait MemPool {
     fn reset(&self, block: &Block) -> Result<()>;
 }
 
-#[derive(Clone)]
-pub struct ChannelMap {
+#[derive(Clone, Default)]
+pub struct ChannelMempool {
     map: Arc<RwLock<HashMap<H160, Vec<SignedTransaction>>>>,
 }
 
-impl MemPool for ChannelMap {
+impl MemPool for ChannelMempool {
     fn push_transaction(&self, tx: SignedTransaction) -> Result<()> {
         let mut map = self.map.write().unwrap();
         map.entry(tx.from)

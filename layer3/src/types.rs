@@ -1,22 +1,27 @@
-use primitive_types::{H160, H256, U128, U256};
+use primitive_types::{H160, H256, U256};
 use serde::{Deserialize, Serialize};
 
-use crate::auxiliaries::common::blake2b;
+use crate::auxiliaries::common::Hash;
 
 pub type Signature = Vec<u8>;
-pub type Byte32 = [u8; 32];
 
 #[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone)]
 pub struct Token {
     pub id: U256,
-    pub symbol: Byte32,
+    pub symbol: Vec<u8>,
     pub decimal: U256,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone)]
 pub struct Balance {
-    pub settled: U128,
+    pub settled: u128,
     // pub pending_transfer: u128,
+}
+
+impl Balance {
+    pub fn new(settled: u128) -> Self {
+        Self { settled }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone)]
@@ -32,7 +37,7 @@ pub enum ChannelState {
 pub struct Channel {
     pub id: U256,
     pub token: Token,
-    pub challenge_blocks: u64,
+    // pub challenge_blocks: u64,
     pub participant2: [H160; 2],
 
     pub state: ChannelState,
@@ -52,7 +57,7 @@ impl Channel {
 pub struct CreateChannel {
     pub id: U256,
     pub token: Token,
-    pub challenge_blocks: u64,
+    // pub challenge_blocks: u64,
     pub participant2: [H160; 2],
     pub balance2: [Balance; 2],
 }
@@ -75,8 +80,7 @@ impl UpdateChannel {
             ..Default::default()
         };
 
-        let encoded = bincode::serialize(&args).unwrap();
-        blake2b(&encoded)
+        args.hash()
     }
 }
 
@@ -95,8 +99,7 @@ impl CloseChannel {
             ..Default::default()
         };
 
-        let encoded = bincode::serialize(&args).unwrap();
-        blake2b(&encoded)
+        args.hash()
     }
 }
 
@@ -104,7 +107,7 @@ impl CloseChannel {
 pub struct Transfer {
     pub channel_id: U256,
     pub to: H160,
-    pub amount: U128,
+    pub amount: u128,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -124,7 +127,13 @@ pub struct SignedTransaction {
     pub hash: H256,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+impl SignedTransaction {
+    pub fn tx_hash(&self) -> H256 {
+        self.raw.hash()
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, Copy)]
 #[repr(u8)]
 pub enum ExecutionExitCode {
     Success = 0,
@@ -134,7 +143,7 @@ pub enum ExecutionExitCode {
     ErrorUpdateChannelSignature = 4,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct TransactionReceipt {
     pub exit_code: ExecutionExitCode,
     pub state_root: H256,
@@ -156,23 +165,29 @@ impl TransactionReceipt {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct BlockHeader {
     pub number: u64,
-    pub hash: H256,
     pub parent_hash: H256,
-    pub timestamp: U128,
+    pub timestamp: u128,
     pub state_root: H256,
     pub transaction_root: H256,
     pub receipt_root: H256,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Block {
     pub header: BlockHeader,
     pub txs: Vec<SignedTransaction>,
 }
 
+impl Block {
+    pub fn block_hash(&self) -> H256 {
+        self.header.hash()
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub enum NumberHash {
     Number(u64),
     Hash(H256),

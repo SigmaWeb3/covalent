@@ -12,7 +12,7 @@ use sparse_merkle_tree::{
 
 use crate::{
     auxiliaries::{
-        common::{blake2b, H256Ext},
+        common::{H256Ext, Hash},
         store::{Store, StoreError},
     },
     types::Channel,
@@ -20,10 +20,13 @@ use crate::{
 
 pub type SMT<S> = SparseMerkleTree<Blake2bHasher, Channel, S>;
 
+#[derive(Debug, thiserror::Error)]
+#[error("{0}")]
+pub struct Error(pub SMTError);
+
 impl Value for Channel {
     fn to_h256(&self) -> SMTH256 {
-        let encoded: Vec<u8> = bincode::serialize(self).expect("bincode encode");
-        blake2b(&encoded).0.into()
+        self.hash().0.into()
     }
 
     fn zero() -> Self {
